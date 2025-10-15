@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import wrapAsyncErrors from '../error/wrapAsyncErrors.js'
 import AppError from "../error/errorMiddleware.js";
 import {setSession} from "../utils/session.js";
+import Movie from "../models/Movie.js"; 
 
 const userController = {};
 
@@ -13,7 +14,7 @@ userController.registerUser = wrapAsyncErrors(async (req, res, next) => {
 	if(!username || !email || !password) {	
 		return next(new AppError("Please provide all required fields", 400));
 	}
-
+		
 	const existingUser = await User.findOne({$or: [{email}, {username}]});
 	if(existingUser) {
 		return next(new AppError("User with this email or username already exists", 400));
@@ -74,6 +75,30 @@ userController.logoutUser = wrapAsyncErrors(async (req, res, next) => {
 	});
 });
 
-//User-based Logic
+//User Logic
+userController.getUserProfile = wrapAsyncErrors(async (req, res, next) => {
+  const { userId } = req.params;
+
+  if (!userId) {
+    return next(new AppError("Please provide all required fields", 400));
+  }	
+
+  
+  const foundUser = await User.findById(userId).populate('favourite_movies');
+
+  if (!foundUser) {
+    return next(new AppError("User not found", 404));
+  }
+
+  const userData = foundUser.toObject();
+  delete userData.password;
+
+  res.status(200).json({
+    success: true,
+    message: "User profile fetched successfully",
+    user: userData,
+  });
+});
+
 
 export default userController;

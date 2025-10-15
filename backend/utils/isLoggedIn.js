@@ -1,4 +1,4 @@
-export async function isAuthenticated(req, res, next) {	
+export async function isLoggedIn(req, res, next) {	
 	if (req.session && req.session.userId) {
 		next();
 	}

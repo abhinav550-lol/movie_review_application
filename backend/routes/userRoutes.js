@@ -1,16 +1,16 @@
 import userController from '../controllers/userController.js';	
 import { Router } from 'express';
 
-import { isAuthenticated } from '../utils/isAuthenticated.js';
+import { isLoggedIn } from '../utils/isLoggedIn.js';
 
 const router = Router();
 
 //AuthRoutes
 router.post('/register', userController.registerUser);
 router.post('/login', userController.loginUser);
-router.post('/logout', userController.logoutUser);
+router.post('/logout', isLoggedIn ,userController.logoutUser);
 
 //UserRoutes
-
+router.get('/:userId',userController.getUserProfile);
 
 export default router;

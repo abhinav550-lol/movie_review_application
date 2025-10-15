@@ -5,18 +5,23 @@ import jwt from "jsonwebtoken";
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true,
-    unique: true
+    required: [true, 'Username is required'],
+    unique: [true , 'Username already exists'],
   },
   email: {
     type: String,
-    required: true,
-    unique: true
+    required: [	true , 'User email is a required'],
+    unique: [true , 'Email already exists'],
   },
   password: {
     type: String,
-    required: true,
-    minlength: 6
+    required: [true , 'User password is a required'],
+    minlength: [6 , 'Password cannot be less than 6 characters'],
+  },
+  favourite_movies : {
+	type : [mongoose.Schema.Types.ObjectId],
+	ref : 'Movie',
+	default : []
   }
 });
 
