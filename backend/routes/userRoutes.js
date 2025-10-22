@@ -12,5 +12,6 @@ router.post('/logout', isLoggedIn ,userController.logoutUser);
 
 //UserRoutes
 router.get('/:userId',userController.getUserProfile);
+router.get('/:userId/favourites',userController.getFavAllMovies);
 
 export default router;

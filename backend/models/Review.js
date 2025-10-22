@@ -3,6 +3,19 @@
 import mongoose from 'mongoose'
 
 const reviewSchema = new mongoose.Schema({
+	review_rating : {
+		type : Number,
+		required : [true, "Review rating is required"],
+		min : [1, "Minimum rating is 1"],
+		max : [5, "Maximum rating is 5"]
+	},
+	review_heading:{
+		type : String,
+		required : [true, "Review heading is required"],
+		trim : true,
+		minlength : [3, "Review heading must be at least 3 characters"],
+		maxlength : [50 , "Review heading cannot exceed 50 characters"]
+	},
 	review_text : {
 		type: String,
 		required: [true, "Review text is required"],
@@ -24,6 +37,10 @@ const reviewSchema = new mongoose.Schema({
 		type : [mongoose.Schema.Types.ObjectId],
 		ref : 'User',
 		default : []
+	},
+	isEdited : {
+		type : Boolean,
+		default : false
 	},
 	downvotes : {
 		type : [mongoose.Schema.Types.ObjectId],

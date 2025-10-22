@@ -4,10 +4,13 @@ dotenv.config();
 
 import express from 'express'
 import mongoose from 'mongoose'
+import session from 'express-session'
 import cors from 'cors'
 
 import userRoutes from './routes/userRoutes.js'
-import session from 'express-session'
+import movieRoutes from './routes/movieRoutes.js'
+import reviewRoutes from './routes/reviewRoutes.js'
+
 
 const app = express();
 
@@ -36,8 +39,8 @@ app.use(cors({
 //Routes
 
 app.use('/api/users', userRoutes);
-
-
+app.use('/api/movies', movieRoutes);
+app.use('/api/reviews', reviewRoutes);
 
 //Error middleware
 import {errorMiddleware} from './error/errorMiddleware.js'

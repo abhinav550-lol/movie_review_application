@@ -1,7 +1,9 @@
+import AppError from "../error/errorMiddleware.js";
+
 export async function isLoggedIn(req, res, next) {	
 	if (req.session && req.session.userId) {
-		next();
+		return next();
+	}else{
+		return next(new AppError("You are not authenticated", 401));
 	}
-
-	return next(new AppError("You are not authenticated", 401));
 }

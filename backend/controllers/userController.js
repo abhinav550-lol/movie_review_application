@@ -75,7 +75,9 @@ userController.logoutUser = wrapAsyncErrors(async (req, res, next) => {
 	});
 });
 
-//User Logic
+/*----User Logic----*/
+
+//Get user profile
 userController.getUserProfile = wrapAsyncErrors(async (req, res, next) => {
   const { userId } = req.params;
 
@@ -84,7 +86,10 @@ userController.getUserProfile = wrapAsyncErrors(async (req, res, next) => {
   }	
 
   
-  const foundUser = await User.findById(userId).populate('favourite_movies');
+  const foundUser = await User.findById(userId).populate({
+    path: 'favourite_movies',
+    options: { limit: 5 }  
+  });
 
   if (!foundUser) {
     return next(new AppError("User not found", 404));
@@ -98,6 +103,37 @@ userController.getUserProfile = wrapAsyncErrors(async (req, res, next) => {
     message: "User profile fetched successfully",
     user: userData,
   });
+});
+
+userController.getFavAllMovies = wrapAsyncErrors(async (req, res, next) => {
+	const {userId} = req.params;
+
+	if(!userId){
+		return next(new AppError("Please provide all required fields", 400));
+	}
+
+	const foundUser = await User.findById(userId);
+
+	if(!foundUser){
+		return next(new AppError("User not found", 404));
+	}
+
+	const {page = 1} = req.query;
+	const limit = 5;
+
+	const offset = (page - 1)*limit;
+
+	const movies = await Movie.find({ _id: { $in: foundUser.favourite_movies } })
+		.skip(offset)
+		.limit(limit);
+	const total_count = await Movie.countDocuments({ _id: { $in: foundUser.favourite_movies } });
+
+	return res.status(200).json({
+		success: true,
+		message: "Favourite movies fetched successfully",
+		movies,
+		total_count
+	});
 });
 
 

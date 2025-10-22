@@ -22,7 +22,17 @@ const userSchema = new mongoose.Schema({
 	type : [mongoose.Schema.Types.ObjectId],
 	ref : 'Movie',
 	default : []
-  }
+  },
+  upvoted_reviews : {
+	type : [mongoose.Schema.Types.ObjectId],
+	ref : 'Review',
+	default : []
+ },
+ downvoted_reviews : {
+	type : [mongoose.Schema.Types.ObjectId],
+	ref : 'Review',
+	default : []
+ }
 });
 
 userSchema.pre("save", async function (next) {
