@@ -59,6 +59,11 @@ const movieSchema = new mongoose.Schema(
       required: [true, "Poster URL is required"],
       trim: true,
     },
+	favourited_by : {
+		type : [mongoose.Schema.Types.ObjectId],
+		ref : "User",
+		default : []
+	}
   },
   {
     collection: "movies",

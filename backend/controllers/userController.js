@@ -62,7 +62,6 @@ userController.loginUser = wrapAsyncErrors(async (req, res, next) => {
 })
 
 userController.logoutUser = wrapAsyncErrors(async (req, res, next) => {	
-	console.log(req.session.userId)
 	req.session.destroy((err) => {
 		if(err) {
 			return next(new AppError("Error logging out", 500));
@@ -136,5 +135,35 @@ userController.getFavAllMovies = wrapAsyncErrors(async (req, res, next) => {
 	});
 });
 
+
+userController.getLoggedInUser = wrapAsyncErrors(async (req , res , next) => {
+	const userId = req.session.userId;
+	if(!userId){
+		return res.status(200).json({
+			success : true,
+			message: "No auth data found",
+			isAuthenticated: false,
+			user: null
+		})
+	}
+
+
+	const foundUser = await User.findById(userId);
+	if(!foundUser){
+		return res.status(200).json({
+			success : true,
+			message: "User data not found",
+			isAuthenticated: false,
+			user: null
+		})
+	}
+
+	return res.status(200).json({
+		success : true,
+		message : "User data found",
+		isAuthenticated: true,
+		user: foundUser
+	})
+})
 
 export default userController;

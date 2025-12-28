@@ -3,6 +3,7 @@ import wrapAsyncErrors from "../error/wrapAsyncErrors.js";
 import AppError from "../error/errorMiddleware.js";
 import Movie from "../models/Movie.js";
 import User from "../models/User.js";
+import ReviewReaction from "../models/relationships/ReviewReaction.js";
 
 const reviewController = {};
 
@@ -194,106 +195,138 @@ reviewController.getAllUserReviews = wrapAsyncErrors(async (req, res, next) => {
 })
 
 ////Upvoting a review
-//reviewController.upvoteReview = wrapAsyncErrors(async (req, res, next) => {
-//	const userId = req.session.userId;
+reviewController.upvoteReview = wrapAsyncErrors(async (req, res, next) => {
+	const userId = req.session.userId;
 
-//	if(!userId){
-//		return next(new AppError("User not logged in", 401));
-//	}
+	if(!userId){
+		return next(new AppError("User not logged in", 401));
+	}
 
-//	const {reviewId} = req.params;
+	const {reviewId} = req.params;
 
-//	if(!reviewId){
-//		return next(new AppError("Please provide review ID", 400));
-//	}
+	if(!reviewId){
+		return next(new AppError("Please provide review ID", 400));
+	}
 
-//	const foundReview = await Review.findById(reviewId);
-//	if(!foundReview){
-//		return next(new AppError("Review not found", 404));
-//	}
+	const foundReview = await Review.findById(reviewId);
+	if(!foundReview){
+		return next(new AppError("Review not found", 404));
+	}
 
-//	const foundUser = await User.findById(userId);
+	const foundUser = await User.findById(userId);
 
-//	if(!foundUser){
-//		return next(new AppError("User not found", 404));
-//	}
+	if(!foundUser){
+		return next(new AppError("User not found", 404));
+	}
 
-//	let message = "";
+	let message = "";
 
-//	if(foundReview.upvotes.includes(foundUser._id)){
-//		foundReview.upvotes.pull(foundUser._id);
-//		message = "Upvote removed successfully";
-//	}else{
-//		if(foundReview.downvotes.includes(foundUser._id)){
-//			foundReview.downvotes.pull(foundUser._id);
-//		}
-//		foundReview.upvotes.push(foundUser._id);
-//		message = "Upvote added successfully";
-//	}
+	let foundReaction = await ReviewReaction.findOne({review_id : foundReview._id , user_id : foundUser._id});
 
-//	await foundReview.save();
+	if(!foundReaction){
+		foundReaction = await ReviewReaction.create({review_id : foundReview._id , user_id : foundUser._id , reaction_type : 'upvote'});
+		foundReview.upvotes += 1;
+		message = "Upvote added successfully";
+	}else{
+		if(foundReaction.reaction_type === 'upvote'){
+			await ReviewReaction.deleteOne({review_id : foundReview._id , user_id : foundUser._id});
+			foundReview.upvotes -= 1;
+			message = "Upvote removed successfully";
+		}else{
+			foundReaction.reaction_type = 'upvote';
+			foundReview.downvotes -= 1;
+			foundReview.upvotes += 1;
+			await foundReaction.save();
+			message = "Upvote added successfully";
+		}
+	}
 
-//	return res.status(200).json({
-//		success : true,
-//		message,
-//		review : foundReview
-//	})
-//})
+	await foundReview.save();
+
+	return res.status(200).json({
+		success : true,
+		message,
+		review : foundReview
+	})
+})
 
 
-
-//Downvoting a review
-//reviewController.downvoteReview = wrapAsyncErrors(async (req, res, next) => {
-//	const userId = req.session.userId;
-
-//	if(!userId){
-//		return next(new AppError("User not logged in", 401));
-//	}
-
-//	const {reviewId} = req.params;
-
-//	if(!reviewId){
-//		return next(new AppError("Please provide review ID", 400));
-//	}
-
-//	const foundReview = await Review.findById(reviewId);
-//	if(!foundReview){
-//		return next(new AppError("Review not found", 404));
-//	}
-
-//	const foundUser = await User.findById(userId);
-
-//	if(!foundUser){
-//		return next(new AppError("User not found", 404));
-//	}
-
-//	let message = "";
-
-//	if(foundReview.upvotes.includes(foundUser._id)){
-//		foundReview.upvotes.pull(foundUser._id);
-//		message = "Upvote removed successfully";
-//	}else{
-//		if(foundReview.downvotes.includes(foundUser._id)){
-//			foundReview.downvotes.pull(foundUser._id);
-//		}
-//		foundReview.upvotes.push(foundUser._id);
-//		message = "Upvote added successfully";
-//	}
-
-//	await foundReview.save();
-
-//	return res.status(200).json({
-//		success : true,
-//		message,
-//		review : foundReview
-//	})
-//})
-
-//Fetching upvotes and downvotes
 
 //Downvoting a review
+reviewController.downvoteReview = wrapAsyncErrors(async (req, res, next) => {
+	const userId = req.session.userId;
+
+	if(!userId){
+		return next(new AppError("User not logged in", 401));
+	}
+
+	const {reviewId} = req.params;
+
+	if(!reviewId){
+		return next(new AppError("Please provide review ID", 400));
+	}
+
+	const foundReview = await Review.findById(reviewId);
+	if(!foundReview){
+		return next(new AppError("Review not found", 404));
+	}
+
+	const foundUser = await User.findById(userId);
+
+	if(!foundUser){
+		return next(new AppError("User not found", 404));
+	}
+
+	let message = "";
+
+	let foundReaction = await ReviewReaction.findOne({review_id : foundReview._id , user_id : foundUser._id});	
+
+	if(!foundReaction){
+		foundReaction = await ReviewReaction.create({review_id : foundReview._id , user_id : foundUser._id , reaction_type : 'downvote'});
+		foundReview.downvotes += 1;
+		message = "Downvote added successfully";
+	}else{
+		if(foundReaction.reaction_type === 'downvote'){
+			await ReviewReaction.deleteOne({review_id : foundReview._id , user_id : foundUser._id});
+			foundReview.downvotes -= 1;
+			message = "Downvote removed successfully";
+		}else{
+			foundReaction.reaction_type = 'downvote';
+			foundReview.downvotes += 1;
+			foundReview.upvotes -= 1;
+			await foundReaction.save();
+			message = "Downvote added successfully";
+		}
+	}
+
+	await foundReview.save();
+
+	return res.status(200).json({
+		success : true,
+		message,
+		review : foundReview
+	})
+})
 
 //Fetching upvotes and downvotes
+reviewController.getReviewReactions = wrapAsyncErrors(async (req, res, next) => {
+  const { reviewId } = req.params;
+  
+  if (!reviewId) return next(new AppError("Please provide review ID", 400));
+  
+  const foundReview = await Review.findById(reviewId);
+  if (!foundReview) return next(new AppError("Review not found", 404));
+
+  const userReactionDoc = req.session.userId ? await ReviewReaction.findOne({ review_id: reviewId, user_id: req.session.userId }) : null;
+
+  return res.status(200).json({
+    success: true,
+    upvotes: foundReview.upvotes,
+    downvotes: foundReview.downvotes,
+    user_reaction: userReactionDoc ? userReactionDoc.reaction_type : null
+  });
+});
+
 
 
 export default reviewController;

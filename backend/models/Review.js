@@ -34,18 +34,16 @@ const reviewSchema = new mongoose.Schema({
 		required : [true, "Movie ID is required"]
 	},
 	upvotes : {
-		type : [mongoose.Schema.Types.ObjectId],
-		ref : 'User',
-		default : []
+		type : Number,
+		default : 0
+	},
+	downvotes : {
+		type : Number,
+		default : 0
 	},
 	isEdited : {
 		type : Boolean,
 		default : false
-	},
-	downvotes : {
-		type : [mongoose.Schema.Types.ObjectId],
-		ref : 'User',
-		default : []
 	},
 	time : {
 		type : Number,

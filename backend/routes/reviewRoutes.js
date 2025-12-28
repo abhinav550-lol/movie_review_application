@@ -5,14 +5,28 @@ import { isLoggedIn } from '../utils/isLoggedIn.js';
 
 const router = Router();
 
-//router.post('/movies/:movieId/add', isLoggedIn , reviewController.addReview);
+//Add review on a movie
+router.post('/movies/:movieId/add', isLoggedIn , reviewController.addReview);
 
-//router.get('/movies/:movieId', reviewController.getReviewsByMovie);
+//Get all reviews for a particular movie
+router.get('/movies/:movieId', reviewController.getReviewsByMovie);
 
-//router.patch('/:reviewId/edit', isLoggedIn , reviewController.editReview);
-
+//Get all reviews by a particular user, to be displayed on their profile
 router.get('/users/:userId', isLoggedIn , reviewController.getAllUserReviews);
 
-//router.delete('/:reviewId/delete', isLoggedIn , reviewController.deleteReview);
+//edit a review by reviewId
+router.patch('/:reviewId/edit', isLoggedIn , reviewController.editReview);
+
+//delete a review by reviewId
+router.delete('/:reviewId/delete', isLoggedIn , reviewController.deleteReview);
+ 
+//upvote a review
+router.post('/:reviewId/upvote', isLoggedIn , reviewController.upvoteReview);
+
+//downvote a review
+router.post('/:reviewId/downvote', isLoggedIn , reviewController.downvoteReview);
+
+//Get reactions (upvotes and downvotes) for a review and the user reaction if logged in
+router.get('/:reviewId/reactions', reviewController.getReviewReactions);
 
 export default router;

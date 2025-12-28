@@ -18,4 +18,6 @@ const reviewReactionSchema = new mongoose.Schema({
 	}
 }, {_id : false});
 
+reviewReactionSchema.index({ review_id: 1, user_id: 1 }, { unique: true });
+
 export default mongoose.model("ReviewReaction", reviewReactionSchema);

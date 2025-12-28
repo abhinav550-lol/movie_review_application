@@ -1,0 +1,16 @@
+----FONT SELECTION-----
+Headings and Link and Buttons - Plaufair
+Content - Karla
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+</style>
+
+----Pages-----
+
+Main page
+Movie Display Page + Reviews
+Login / Register
+Profile Page
+
+
