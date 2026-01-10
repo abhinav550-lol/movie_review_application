@@ -7,5 +7,6 @@ export default function ProtectedRoute() {
 
 	if(status === "loading") return <LoadingPage />
 	
-	return isAuthenticated ? <Outlet/> :  <Navigate to="/login" replace />;
+	return <Outlet/>; //Temp 
+	//return isAuthenticated ? <Outlet/> :  <Navigate to="/login" replace />;
 }

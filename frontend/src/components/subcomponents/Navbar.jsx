@@ -1,0 +1,37 @@
+import  { useState } from 'react'
+import { useNavigate } from 'react-router';
+
+const hamburgerMenuStyle = 'border border-gray-500 w-full h-1/3 flex items-center justify-center cursor-ponter hover:bg-gray-300';
+const bigScreenOptions = 'options hover:underline text-xl cursor-pointer flex items-center';
+
+const Navbar = () => {
+	const [menuOpen , setMenuOpen] = useState(false);
+	const navigate = useNavigate();
+  
+  return (
+	<nav className='w-full h-24 flex items-center p-4 justify-between'>
+		<img src="/assets/logo.png" alt="Logo" className='w-1/3 md:w-1/6 min-w-40'/>
+		{/* Hamburger for phone layout -> Contains DarkMode SearchLink to browsing and Profile*/}
+		<div className="hamburger md:hidden font-playfair  w-1/3 flex justify-end">
+			<img src="/assets/hamburger-menu.svg" alt="hamburger" className='w-1/3 max-w-1/4 cursor-pointer relative ' onClick={() => setMenuOpen((isOpen) => !isOpen)}/>
+			{menuOpen && (
+				<ul className="open-menu absolute bg-[#9e9d9db1]  h-40 w-1/3 max-w-36 min-w-25 top-10 right-2 translate-y-8 flex flex-col items-center justify-around border rounded ">
+					<li className={hamburgerMenuStyle}  onClick={() => {setMenuOpen((isOpen) => !isOpen); navigate('/profile') }}>Profile</li>
+					<li className={hamburgerMenuStyle} onClick={() => {setMenuOpen((isOpen) => !isOpen); navigate('/browse')}}>Search</li>
+					<li className={hamburgerMenuStyle} onClick={() => {setMenuOpen((isOpen) => !isOpen) }}><img src="/assets/dark-mode-icon.svg" alt="Dark Mode" /></li>
+				</ul>
+			)}
+		</div>
+		{/* Full Menu for larger screens -> Contains DarkMode SearchLink to browsing and Profile*/}
+		<div className="bigscreen-options hidden md:flex w-1/3 font-playfair">
+			<ul className="options flex justify-around w-full ">
+				<li className={bigScreenOptions} onClick={() => {navigate('/profile')}}>Profile</li>
+				<li className={bigScreenOptions} onClick={() => {navigate('/browse')}}>Search</li>
+				<li className={bigScreenOptions }><img src="/assets/dark-mode-icon.svg" className='bg-gray-200 w-full h-full rounded-full' alt="Dark Mode" /></li>
+			</ul>
+		</div>
+	</nav>
+  )
+}
+
+export default Navbar

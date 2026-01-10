@@ -14,3 +14,11 @@ Login / Register
 Profile Page
 
 
+
+Dark Mode:
+Everything black + text white
+
+Light Mode:
+Primary: FCF8F8
+EF5A6F
+
