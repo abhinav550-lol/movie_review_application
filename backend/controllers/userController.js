@@ -137,6 +137,16 @@ userController.getFavAllMovies = wrapAsyncErrors(async (req, res, next) => {
 
 
 userController.getLoggedInUser = wrapAsyncErrors(async (req , res , next) => {
+	////Testing frontend code
+	//return res.status(200).json({
+	//	success : true,
+	//	message : "User data found",
+	//	isAuthenticated: true,
+	//	user: {}
+	//})
+	////----------------------------
+
+
 	const userId = req.session.userId;
 	if(!userId){
 		return res.status(200).json({

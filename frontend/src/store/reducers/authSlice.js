@@ -8,7 +8,7 @@ export const fetchMe = createAsyncThunk(
 			const res = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/users/user/me" , {
 				withCredentials: true,
 			});
-			return res.data;
+			return res.data ;
 		}catch(err){
 			return rejectWithValue(err.response?.data?.message);
 		}

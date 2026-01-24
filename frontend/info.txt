@@ -20,5 +20,4 @@ Everything black + text white
 
 Light Mode:
 Primary: FCF8F8
-EF5A6F
-
+cf384d
