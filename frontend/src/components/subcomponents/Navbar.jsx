@@ -15,7 +15,6 @@ const Navbar = ({authControls = true}) => {
 	<nav className='w-full h-24 flex items-center p-4 justify-between'>
 		<img src="/assets/logo.png" alt="Logo" className='w-1/3 md:w-1/6 min-w-40 cursor-pointer' onClick={() => navigate('/home')}/>
 		{/* Hamburger for phone layout -> Contains DarkMode SearchLink to browsing and Profile*/}
-		
 		{authControls &&  (isLoggedIn ? (
 			<>
 			<div className="hamburger md:hidden font-playfair  w-1/3 flex justify-end">

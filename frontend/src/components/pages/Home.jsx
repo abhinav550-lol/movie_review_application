@@ -9,8 +9,9 @@ const Home = () => {
 
 
   return (
-	<div className='w-screen h-screen'>
+	<div className='w-screen min-h-screen flex flex-col'> 
 	  <Navbar />
+
 	</div>
   )
 }

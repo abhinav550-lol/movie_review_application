@@ -20,4 +20,13 @@ Everything black + text white
 
 Light Mode:
 Primary: FCF8F8
-cf384d
+cf384d (hover effect color - b32c3a)
+
+
+
+
+Next Agenda:
+-Switch to React Query for API calls 
+-handle auth states, also finish pages like signin signup
+-Build the main hero + movie displayed on grid
+

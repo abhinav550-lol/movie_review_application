@@ -112,7 +112,6 @@ userController.getFavAllMovies = wrapAsyncErrors(async (req, res, next) => {
 	}
 
 	const foundUser = await User.findById(userId);
-
 	if(!foundUser){
 		return next(new AppError("User not found", 404));
 	}
