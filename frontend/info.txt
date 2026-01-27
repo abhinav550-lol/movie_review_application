@@ -26,7 +26,6 @@ cf384d (hover effect color - b32c3a)
 
 
 Next Agenda:
--Switch to React Query for API calls 
--handle auth states, also finish pages like signin signup
+-backend to front auth sign up and sign in
 -Build the main hero + movie displayed on grid
-
+-also, work on validations 

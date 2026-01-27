@@ -6,11 +6,11 @@ const hamburgerMenuStyle = 'border border-gray-500 w-full h-1/3 flex items-cente
 const bigScreenOptions = 'options hover:underline text-xl cursor-pointer flex items-center';
 
 const Navbar = ({authControls = true}) => {
-	const {isAuthenticated : isLoggedIn , status} = useSelector((store) => store.auth);
-	const [menuOpen , setMenuOpen] = useState(false);
+	const {isAuthenticated : isLoggedIn } = useSelector((store) => store.auth);
 
-	const navigate = useNavigate();
+	const [menuOpen , setMenuOpen] = useState(false);
 	
+	const navigate = useNavigate();	
   return (
 	<nav className='w-full h-24 flex items-center p-4 justify-between'>
 		<img src="/assets/logo.png" alt="Logo" className='w-1/3 md:w-1/6 min-w-40 cursor-pointer' onClick={() => navigate('/home')}/>

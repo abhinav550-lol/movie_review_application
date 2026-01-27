@@ -1,66 +1,21 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from 'axios';
+import { createSlice } from "@reduxjs/toolkit";
 
-export const fetchMe = createAsyncThunk(
-	"user/me",
-	async (_, { rejectWithValue }) => {
-		try{
-			const res = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/users/user/me" , {
-				withCredentials: true,
-			});
-			return res.data ;
-		}catch(err){
-			return rejectWithValue(err.response?.data?.message);
-		}
-	}
-);
-
-export const logoutMe = createAsyncThunk(
-	"user/logout" , 
-	async(_ , {rejectWithValue}) => {
-		try {
-			await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/users/logout" , {} , {
-				withCredentials: true,	
-			});
-			return ;
-		}catch(err){
-			return rejectWithValue(err.response?.data?.message);
-		}
-	}
-)
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: { data: null, status: "idle", isAuthenticated: false , error : null},
-  extraReducers: (builder) => {
-    builder
-	//FetchMe
-      .addCase(fetchMe.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(fetchMe.fulfilled, (state, action) => {
-        state.status = "success";
-        state.data = action.payload.user;
-		state.isAuthenticated = action.payload.isAuthenticated;
-      })
-	  .addCase(fetchMe.rejected, (state, action) => {
-		state.status = "error";
-		state.error = action.payload;
-	})
-	//LogoutMe
-	.addCase(logoutMe.pending , (state) => {
-		state.status = "loading";
-	})
-	.addCase(logoutMe.fulfilled , (state) => {
-		state.status = "success";
-		state.data = null;
-		state.isAuthenticated = false;
-	})
-	.addCase(logoutMe.rejected , (state , action) => {
-		state.status = "error";
-		state.error = action.payload;
-	})
+  initialState: { user: null, isAuthenticated: false },
+  reducers: {
+    setAuth: (state, action) => { // login or register 
+      state.user = action.payload;
+      state.isAuthenticated = true;
+    },
+    clearAuth: (state) => { //logout 
+      state.user = null;
+      state.isAuthenticated = false;
+    },
   },
 });
 
+
 export default authSlice.reducer;
+export const { setAuth, clearAuth } = authSlice.actions;

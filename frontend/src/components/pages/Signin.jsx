@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import Navbar from '../subcomponents/Navbar'
+import { useNavigate } from 'react-router-dom';
 
 const Signin = () => {
+	const navigate = useNavigate();
 	const [formData , setFormData] = useState({
 		email : '',
 		password : ''
@@ -34,7 +36,7 @@ const Signin = () => {
     </h2>
     <div className="mb-4">
       <label className="block text-gray-600 text-sm mb-1" htmlFor="email">
-        Email
+        Email*
       </label>
       <input
         id="email"
@@ -50,7 +52,7 @@ const Signin = () => {
 
     <div className="mb-6">
       <label className="block text-gray-600 text-sm mb-1" htmlFor="password">
-        Password
+        Password*
       </label>
       <input
         id="password"
@@ -64,6 +66,7 @@ const Signin = () => {
       />
     </div>
 
+	<div className="signup-redirect text-sm  md:text-base  my-2">Don't have an account? <span className="text-blue-500 cursor-pointer hover:underline" onClick={() => navigate('/signup')}>Sign Up</span></div>
     <button
       type="submit"
       className="w-full bg-[#cf384d] text-white py-2 rounded-md hover:bg-[#b32c3a] transition"
