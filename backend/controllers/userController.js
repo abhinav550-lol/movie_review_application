@@ -10,14 +10,19 @@ const userController = {};
 //Authentication
 userController.registerUser = wrapAsyncErrors(async (req, res, next) => {	
 	const {username , email , password} = req.body;
-
+	
 	if(!username || !email || !password) {	
 		return next(new AppError("Please provide all required fields", 400));
 	}
-		
-	const existingUser = await User.findOne({$or: [{email}, {username}]});
-	if(existingUser) {
-		return next(new AppError("User with this email or username already exists", 400));
+	
+	const existingEmailUser = await User.findOne({email});
+	if(existingEmailUser) {
+		return next(new AppError("Email already in use", 400));
+	}
+	
+	const existingNameUser = await User.findOne({username});
+	if(existingNameUser) {
+		return next(new AppError("Username already taken", 400));
 	}
 
 	const newUser = await User.create({username , email , password});
@@ -25,7 +30,7 @@ userController.registerUser = wrapAsyncErrors(async (req, res, next) => {
 
 	setSession(req, {token , userId : newUser._id.toString()});
 
-	res.status(200).json({
+	return res.status(200).json({
 		success: true,
 		message : "User registered successfully",
 		newUser
@@ -144,9 +149,11 @@ userController.getLoggedInUser = wrapAsyncErrors(async (req , res , next) => {
 	//	user: {}
 	//})
 	////----------------------------
-
+	console.log("hi from backend")
 
 	const userId = req.session.userId;
+
+	console.log(userId)
 	if(!userId){
 		return res.status(200).json({
 			success : true,

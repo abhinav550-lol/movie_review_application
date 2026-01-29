@@ -1,11 +1,15 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 
+
+
 //React Redux / Stores
 import { useQuery } from '@tanstack/react-query';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMe } from "./api/authApi.js";
 import { setAuth, clearAuth } from './store/reducers/authSlice.js';
+
+import {Bounce, ToastContainer } from 'react-toastify';
 
 //Routes
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
@@ -62,6 +66,9 @@ function App() {
 
 	return (
 		<BrowserRouter>
+
+			<ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition={Bounce}/>
+
 			<Routes>
 				{/* Public Routes*/}
 				<Route path='/' element={<Navigate to='/home' />} />

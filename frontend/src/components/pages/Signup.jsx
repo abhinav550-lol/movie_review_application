@@ -1,9 +1,17 @@
-import { useState } from 'react';
+import {  useState } from 'react';
 import Navbar from '../subcomponents/Navbar'
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { registerUser } from '../../api/authApi';
+import { showToast } from '../../utils/utils';
+import { useDispatch } from 'react-redux';
+import { setAuth } from '../../store/reducers/authSlice';
+
 
 const Signup = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
@@ -19,10 +27,25 @@ const Signup = () => {
 		}))
 	}
 
+	const registerMutation =  useMutation({
+		mutationFn : registerUser,
+
+		onSuccess : (data) => {	
+			const {message , newUser : user} = data;
+			showToast(message , 'success');
+			//Setting global auth state
+			dispatch(setAuth(user._id))	
+			navigate('/home');
+		},
+
+		onError : (error) => {
+			showToast(error.response.data.message , 'error');
+		}
+	});
+
 	function handleSubmit(event) {
 		event.preventDefault();
-
-		const api = import.meta.env.VITE_BACKEND_URL + '/api/users/login'
+		registerMutation.mutate(formData);	
 	}
 
 	const [usernameInfoVisible, setUsernameInfoVisible] = useState(false);

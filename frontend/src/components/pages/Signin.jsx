@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Navbar from '../subcomponents/Navbar'
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
 
 const Signin = () => {
 	const navigate = useNavigate();
@@ -18,11 +19,26 @@ const Signin = () => {
 	}))
 	}
 
-	function handleSubmit(event){
+	const loginMutation =  useMutation({
+		mutationFn : loginUser,
+		onSuccess : (data) => {	
+			const {message , foundUser : user} = data;
+			showToast(message , 'success');
+			//Setting global auth state
+			dispatch(setAuth(user._id))	
+			navigate('/home');
+		},
+
+		onError : (error) => {
+			showToast(error.response.data.message , 'error');
+		}
+	});
+
+	async function handleSubmit(event){
 		event.preventDefault();
 
-		const api = import.meta.env.VITE_BACKEND_URL + '/api/users/login'
-		
+
+
 	}
 
   return (
