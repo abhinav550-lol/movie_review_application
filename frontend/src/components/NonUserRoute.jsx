@@ -8,7 +8,5 @@ export default function NonUserRoute() {
 	const {isAuthenticated , status} = useSelector((store) => store.auth);
 
 	if(status === "loading") return <LoadingPage />
-	
-	return <Outlet/>; //temp
-	//return !isAuthenticated ? <Outlet/> :  <Navigate to="/home" replace />;
+	return !isAuthenticated ? <Outlet/> :  <Navigate to="/home"  />;
 }

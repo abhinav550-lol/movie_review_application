@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import Navbar from '../subcomponents/Navbar'
+import Hero from '../subcomponents/Hero';
 
 const Home = () => {
 	useEffect(() => {
@@ -9,9 +10,9 @@ const Home = () => {
 
 
   return (
-	<div className='w-screen min-h-screen flex flex-col'> 
+	<div className='w-screen min-h-screen h-screen flex flex-col'> 
 	  <Navbar />
-
+	  <Hero/>
 	</div>
   )
 }

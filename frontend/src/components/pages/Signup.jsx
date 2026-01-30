@@ -53,8 +53,8 @@ const Signup = () => {
 	return (
 		<div className='w-screen min-h-screen flex flex-col'>
 			<Navbar authControls={false} />
-			<div className="flex-1 bg-[#cf384c] w-screen flex items-center justify-center" >
-				<form className="bg-white w-9/10 max-w-sm p-8 rounded-lg shadow-md font-karla">
+			<div className="flex-1 bg-[linear-gradient(90deg,rgba(155,42,42,1)_3%,rgba(163,51,51,1)_23%,rgba(194,83,83,1)_50%,rgba(237,221,83,1)_100%)]  w-screen flex items-center justify-center" >
+				<form className="bg-white w-9/10 max-w-sm p-8 rounded-lg shadow-md font-karla" autoComplete='off'>
 					<h2 className="text-2xl font-semibold text-center text-gray-800 mb-6 capitalize">
 						Sign-up
 					</h2>
