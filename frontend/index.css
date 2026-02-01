@@ -8,3 +8,75 @@
   --font-sans: 'Karla', sans-serif; 
   --font-playfair: 'Playfair Display', serif; /* font-playfair */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*---- GLOBAL CSS ------*/
+
+
+/* Scroll indicator container */
+.scroll {
+  position: absolute;
+  bottom: 2rem;            /* distance from bottom of hero */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 95px;
+  border: 3px solid #2f2f2f;
+  border-radius: 999px;
+  background: #d7e2e876;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Falling dot */
+.scroll::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  width: 12px;
+  height: 12px;
+  background: rgba(0, 0, 0, 0.708);
+  border-radius: 50%;
+  animation: scroll-fall 1.8s ease-in-out infinite;
+}
+
+/* Animation */
+@keyframes scroll-fall {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  80% {
+    transform: translateY(55px);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(55px);
+    opacity: 0;
+  }
+}

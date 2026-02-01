@@ -2,8 +2,8 @@ import React from 'react'
 
 const LoadingPage = () => {
   return (
-	<div className='flex justify-center items-center w-screen h-screen bg-red-300'>
-	  <img src="/assets/logo.png" alt="Loading..." className='w-1/6 animate-pulse'/>
+	<div className='flex justify-center items-center w-screen h-screen bg-[#cf384d]'>
+	  <h1 className='font-bold text-white text-4xl lg:text-6xl animate-bounce  font-playfair '>CineCritic</h1>
 	</div>
   )
 }

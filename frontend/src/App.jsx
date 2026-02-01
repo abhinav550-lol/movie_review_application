@@ -66,8 +66,7 @@ function App() {
 
 	return (
 		<BrowserRouter>
-
-			<ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition={Bounce}/>
+			<ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={true} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition={Bounce} limit={1} stacked={true} />
 
 			<Routes>
 				{/* Public Routes*/}

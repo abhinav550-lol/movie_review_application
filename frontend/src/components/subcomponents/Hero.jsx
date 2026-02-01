@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react'
 
+const heroMovieClasses = "movie-image outline-3 outline-black hover:outline-offset-[-3px] hover:scale-105 transition-all duration-300 ease-in-out rounded-lg hover:opacity-80 hover:translate hover:-translate-y-5";
+
 const Hero = () => {
 	const inputRef = useRef(null);
 
@@ -23,17 +25,25 @@ const Hero = () => {
 	})
 
 	return (
-		<div className="h-7/10 w-full bg-linear-to-r from-[#cf384d] to-[#af0000] flex justify-center items-center text-white ">
-			<div className="flex flex-col justify-center items-start w-4/5 gap-2  p-2 ">
+		<div className="min-h-[calc(100vh-6rem)] w-full bg-linear-to-r from-[#cf384d] to-[#af0000] flex  justify-center items-center text-white p-2  gap-4 relative">
+			<div className="flex flex-col justify-center items-start w-4/5 md:w-1/2 gap-4 p-2">
 				<div className="hero-content">
-					<h1 className='text-md md:text-2xl lg:text-3xl font-bold tracking-wider whitespace-nowrap'>Find Your Next Favorite Movie.</h1>
+					<h1 className='text-md md:text-2xl lg:text-3xl font-bold tracking-wider whitespace-nowrap mb-4'>Find Your Next Favorite Movie.</h1>
 					<p className='text-sm md:text-lg lg:text-xl '>Write reviews, read perspectives, and connect with a community that lives for cinema.</p>
 				</div>
-				<form action="" className='flex w-1/2'>
-					<input type="text" ref={inputRef}  className='md:w-full min-w-55 h-12 bg-white outline-none text-sm md:text-lg  text-black p-2 font-semibold ' placeholder='😮‍💨Browse your all-time classics!' />
-					<button className='border bg-slate-800 cursor-pointer  min-w-10 flex justify-center items-center '><img src="/assets/double-right-arrow.svg" alt=">" className='rounded' /></button> {/* Replace with search icon and browsing functionality */}
+				<form action="" className='flex w-4/5  md:w-4/5 min-w-50 flex-none'>
+					<input type="text" ref={inputRef}  className='md:w-full h-12 bg-white outline-none text-sm lg:text-lg  text-black p-2 font-semibold ' placeholder='😮‍💨Browse your all-time classics!' />
+					<button className='border bg-slate-800 cursor-pointer min-w-2/10 lg:min-w-1/10  flex justify-center items-center '><img src="/assets/double-right-arrow.svg" alt=">" className='rounded' /></button> {/* Replace with search icon and browsing functionality */}
 				</form>
 			</div>
+
+			<div className="hero-movie-titles md:grid md:grid-cols-3 hidden max-w-1/3 h-7-10 gap-3">
+				<div className={heroMovieClasses}><img src="https://image.tmdb.org/t/p/original/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg" alt=""  />  </div> 
+				<div className={heroMovieClasses}><img src="https://image.tmdb.org/t/p/original/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg" alt="" />  </div>
+				<div className={heroMovieClasses}><img src="https://image.tmdb.org/t/p/original/h8Rb9gBr48ODIwYUttZNYeMWeUU.jpg" alt="" />  </div>
+			</div>
+
+			<div class="scroll scale-50"></div>
 		</div>
 	)
 }

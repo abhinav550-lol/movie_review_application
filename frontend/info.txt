@@ -29,3 +29,10 @@ Next Agenda:
 -backend to front auth sign up and sign in
 -Build the main hero + movie displayed on grid
 -also, work on validations 
+
+
+
+Hero pics:
+spider man no way home https://image.tmdb.org/t/p/original/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg
+Demon slayer mugen  https://image.tmdb.org/t/p/original/h8Rb9gBr48ODIwYUttZNYeMWeUU.jpg
+Interstellar https://image.tmdb.org/t/p/original/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg

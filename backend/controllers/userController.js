@@ -59,9 +59,9 @@ userController.loginUser = wrapAsyncErrors(async (req, res, next) => {
 	req.session.userId = foundUser._id.toString();
 	setSession(req, {token , userId : foundUser._id.toString()});
 
-	res.status(200).json({
+	return res.status(200).json({
 		success: true,
-		message : "User logged-in successfully",
+		message : "User logged in successfully",
 		foundUser
 	})
 })
@@ -149,11 +149,9 @@ userController.getLoggedInUser = wrapAsyncErrors(async (req , res , next) => {
 	//	user: {}
 	//})
 	////----------------------------
-	console.log("hi from backend")
 
 	const userId = req.session.userId;
 
-	console.log(userId)
 	if(!userId){
 		return res.status(200).json({
 			success : true,
@@ -181,5 +179,9 @@ userController.getLoggedInUser = wrapAsyncErrors(async (req , res , next) => {
 		user: foundUser
 	})
 })
+
+
+
+
 
 export default userController;
