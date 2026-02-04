@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Navbar from '../subcomponents/Navbar'
 import Hero from '../subcomponents/Hero';
+import Trending from '../subcomponents/Trending';
 
 const Home = () => {
 	useEffect(() => {
@@ -13,8 +14,9 @@ const Home = () => {
 	<div className='w-full min-h-full h-full flex flex-col '> 
 	  <Navbar />
 	  <Hero/>
+	  <Trending />
 	</div>
   )
-}
+} 
 
-export default Home
+export default Home;
