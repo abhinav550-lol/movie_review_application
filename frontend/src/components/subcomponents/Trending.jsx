@@ -1,18 +1,50 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 import Marquee from "react-fast-marquee";
+import { fetchTrendingMovies } from '../../api/moviesApi';
+import { MoonLoader } from 'react-spinners';
+import Movie from './Movie';
+
+
+
 
 const Trending = () => {
-  return (
+	const {data , isLoading , error} = useQuery({queryKey : ['trendingMovies'] , queryFn : fetchTrendingMovies});
+
+	return (
 	//Temp h screen
-	<div className='w-full min-h-screen py-4 px-2 flex flex-col gap-4'> 
-	  <div className="intro-content flex flex-col gap-2 mb-10">
-		<div className="title font-playfair text-2xl md:text-3xl font-medium ">Trending Now</div>
+	<div className='w-full min-h-[calc(100vh-20rem)] py-4 px-3 flex flex-col gap-4'> 
+	  <div className="intro-content flex flex-col gap-2 mb-3">
+		<div className="title font-playfair text-2xl md:text-3xl font-medium mb-1">Trending Now</div>
 		<p className="text-sm md:text-xl text-gray-500 font-light ">The hottest movies and shows everyone is talking about.</p>
 	  </div>
-
-	  <Marquee className="trending-marquee" autoFill={true} speed={25} gradient={true} gradientColor='white' pauseOnHover={true} gradientWidth={100}>
+	{isLoading & !error ? 
+		<div className="w-full h-24 flex justify-center items-center">
+		<MoonLoader
+			className="scale-75 lg:scale-100"
+			size={40}
+			speedMultiplier={0.5}
+		/>
+		</div>
+	:
+		<Marquee className="trending-marquee"  autoFill={true} speed={30} gradient={true} gradientColor='white'  gradientWidth={20}>
+			{
+				data?.movies.map((movie) => {
+					return <div className="mx-2 lg:mx-4"><Movie key={movie.id} {...movie}/></div>
+				})
+			}
+		</Marquee>
 		
-	  </Marquee>
+	}
+
+	{
+		error &&
+		<div className="w-full h-24 flex justify-center items-center font-medium">
+			Failed to load trending movies. Please try again later.
+		</div>
+	}
+
+
 	</div>
   )
 }

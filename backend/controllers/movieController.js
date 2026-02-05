@@ -167,5 +167,20 @@ movieController.removeFromFavourites = wrapAsyncErrors(async (req, res, next) =>
 
 });						
 
+movieController.getTrendingMovies = wrapAsyncErrors(async (req, res, next) => {
+	const trendingMovies = await Movie.find( {
+		year : { $gte: 2020} ,
+		vote_average : { $gte: 8.5 }
+	}).limit(20);
+
+	trendingMovies.sort((a, b) => b.vote_average - a.vote_average);
+
+	return res.status(200).json({
+		success : true,
+		message : "Trending movies fetched successfully",
+		count : trendingMovies.length,
+		movies : trendingMovies,
+	})
+});
 
 export default movieController;

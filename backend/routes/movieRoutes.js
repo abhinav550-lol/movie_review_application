@@ -8,6 +8,9 @@ const router = Router();
 //Browsing movies on the home page and also able to add genres filter
 router.get('/browse', movieController.browseMovies);
 
+//Get Trending movies
+router.get('/trending', movieController.getTrendingMovies);
+
 //Get movie details by movieId
 router.get('/:movieId', isLoggedIn, movieController.getMovieDetails);
 
@@ -19,5 +22,6 @@ router.post('/:movieId/favourites', isLoggedIn, movieController.addToFavourites)
 
 //Current user can remove from favorites
 router.delete('/:movieId/favourites', isLoggedIn, movieController.removeFromFavourites);
+
 
 export default router;

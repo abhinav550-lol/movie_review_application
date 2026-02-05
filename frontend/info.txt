@@ -26,9 +26,9 @@ cf384d (hover effect color - b32c3a)
 
 
 Next Agenda:
--backend to front auth sign up and sign in
--Build the main hero + movie displayed on grid
--also, work on validations 
+#-Trending API logic and display 
+-Movies browsing and movies component 
+-Movies Info Screen
 
 
 
