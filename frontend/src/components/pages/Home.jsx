@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import Navbar from '../subcomponents/Navbar'
 import Hero from '../subcomponents/Hero';
 import Trending from '../subcomponents/Trending';
+import Footer from '../subcomponents/Footer';
 
 const Home = () => {
 	useEffect(() => {
@@ -15,6 +16,7 @@ const Home = () => {
 	  <Navbar />
 	  <Hero/>
 	  <Trending />
+	  <Footer />
 	</div>
   )
 } 

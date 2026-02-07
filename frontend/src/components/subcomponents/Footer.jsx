@@ -1,41 +1,23 @@
-//import React from 'react'
+import React from 'react'
+import Logo from './Logo'
 
-//const Footer = () => {
-//  return (
-//	<div className='w-full min-h-[calc(100vh-20rem)] py-4 px-2 flex flex-col gap-4'> 
-//	  <div className="intro-content flex flex-col gap-2 mb-3">
-//		<div className="title font-playfair text-2xl md:text-3xl font-medium mb-1">Trending Now</div>
-//		<p className="text-sm md:text-xl text-gray-500 font-light ">The hottest movies and shows everyone is talking about.</p>
-//	  </div>
-//	{isLoading & !error ? 
-//		<div className="w-full h-24 flex justify-center items-center">
-//		<MoonLoader
-//			className="scale-75 lg:scale-100"
-//			size={40}
-//			speedMultiplier={0.5}
-//		/>
-//		</div>
-//	:
-//		<Marquee className="trending-marquee"  autoFill={true} speed={30} gradient={true} gradientColor='white'  gradientWidth={20}>
-//			{
-//				data.movies.map((movie) => {
-//					return <div className="mx-2 lg:mx-4"><Movie key={movie.id} {...movie}/></div>
-//				})
-//			}
-//		</Marquee>
-		
-//	}
+const Footer = () => {
+  return (
+<div className='w-full min-h-[30vh] py-4 px-5 flex flex-col md:flex-row gap-4 bg-[#cf384d] md:items-center  justify-center  md:justify-between'> 
+		<div className="logo-content flex gap-2 flex-col  my-3 md:my-1 ">
+			<Logo textSizeOpts='text-xl md:text-3xl' color='black'/>
+			<p className="text-gray-200 font-medium md:text-xl">Discover new movies and reviews!</p>
+		</div>
 
-//	{
-//		error &&
-//		<div className="w-full h-24 flex justify-center items-center text-red-500 font-medium">
-//			Failed to load trending movies. Please try again later.
-//		</div>
-//	}
+		<div className="connect w-1/4 flex flex-col gap-2 my-5 md:my-1 ">
+			<h2 className='text-xl md:text-2xl font-medium text-black'>Connect</h2>
+			<ul className="flex flex-col gap-4">
+				<li><a className='text-gray-200 flex gap-2 font-karla cursor-pointer font-medium text-lg' target='_blank' href='https://github.com/abhinav550-lol/'><img src="assets/github-logo.svg"   alt="" className='w-6 ' /> <span>Github</span></a></li>
+				<li><a className='text-gray-200 flex gap-2 font-karla cursor-pointer font-medium text-lg' target='_blank' href='https://www.linkedin.com/in/abhinav-mishra-53a504286/'><img src="assets/linkedin-logo.svg"   alt="" className='w-6   ' /> <span>LinkedIn</span></a></li>
+			</ul>
+		</div>
+	</div>
+  )
+}
 
-
-//	</div>
-//  )
-//}
-
-//export default Footer
+export default Footer

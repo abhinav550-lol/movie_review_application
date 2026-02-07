@@ -26,10 +26,9 @@ cf384d (hover effect color - b32c3a)
 
 
 Next Agenda:
-#-Trending API logic and display 
+-Footer complete 
 -Movies browsing and movies component 
 -Movies Info Screen
-
 
 
 Hero pics:

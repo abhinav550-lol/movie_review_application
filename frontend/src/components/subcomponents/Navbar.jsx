@@ -1,6 +1,7 @@
 import  { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Logo from './Logo';
 
 const hamburgerMenuStyle = 'border border-gray-500 w-full h-1/3 flex items-center justify-center cursor-ponter hover:bg-gray-300';
 const bigScreenOptions = 'options hover:underline text-xl cursor-pointer flex items-center';
@@ -12,8 +13,8 @@ const Navbar = ({authControls = true}) => {
 	
 	const navigate = useNavigate();	
   return (
-	<nav className='w-full h-24 flex items-center p-4 justify-between'>
-		<img src="/assets/logo.png" alt="Logo" className='w-1/3 md:w-1/6 min-w-40 cursor-pointer' onClick={() => navigate('/home')}/>
+	<nav className='w-full h-24 flex items-center p-4 justify-between border-b-2 border-black'>
+		<Logo />
 		{/* Hamburger for phone layout -> Contains DarkMode SearchLink to browsing and Profile*/}
 		{authControls &&  (isLoggedIn ? (
 			<>

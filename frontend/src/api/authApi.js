@@ -1,13 +1,9 @@
 import axios from "axios";
 
 export const fetchMe = async () => {
-
-	console.log(import.meta.env.VITE_BACKEND_URL + "/api/users/me")
 	const res = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/users/me", {
 		withCredentials: true,
 	});
-
-	console.log(2)
 	return res.data;
 }
 

@@ -1,19 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react'
 import Marquee from "react-fast-marquee";
 import { fetchTrendingMovies } from '../../api/moviesApi';
 import { MoonLoader } from 'react-spinners';
 import Movie from './Movie';
 
-
-
-
 const Trending = () => {
 	const {data , isLoading , error} = useQuery({queryKey : ['trendingMovies'] , queryFn : fetchTrendingMovies});
 
 	return (
-	//Temp h screen
-	<div className='w-full min-h-[calc(100vh-20rem)] py-4 px-3 flex flex-col gap-4'> 
+<div className='w-full min-h-[65vh] py-4 px-3 flex flex-col gap-4 justify-center  border-b-2 border-black'>  
 	  <div className="intro-content flex flex-col gap-2 mb-3">
 		<div className="title font-playfair text-2xl md:text-3xl font-medium mb-1">Trending Now</div>
 		<p className="text-sm md:text-xl text-gray-500 font-light ">The hottest movies and shows everyone is talking about.</p>
@@ -30,7 +25,7 @@ const Trending = () => {
 		<Marquee className="trending-marquee"  autoFill={true} speed={30} gradient={true} gradientColor='white'  gradientWidth={20}>
 			{
 				data?.movies.map((movie) => {
-					return <div className="mx-2 lg:mx-4"><Movie key={movie.id} {...movie}/></div>
+					return <div className="mx-2 lg:mx-4 "  key={movie.id}><Movie {...movie}/></div>
 				})
 			}
 		</Marquee>
