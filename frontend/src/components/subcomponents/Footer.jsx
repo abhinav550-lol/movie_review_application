@@ -5,7 +5,7 @@ const Footer = () => {
   return (
 <div className='w-full min-h-[30vh] py-4 px-5 flex flex-col md:flex-row gap-4 bg-[#cf384d] md:items-center  justify-center  md:justify-between'> 
 		<div className="logo-content flex gap-2 flex-col  my-3 md:my-1 ">
-			<Logo textSizeOpts='text-xl md:text-3xl' color='black'/>
+			<Logo textSizeOpts='text-xl md:text-3xl font-bold' color='black'/>
 			<p className="text-gray-200 font-medium md:text-xl">Discover new movies and reviews!</p>
 		</div>
 

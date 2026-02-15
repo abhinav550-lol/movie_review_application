@@ -3,6 +3,8 @@ import Navbar from '../subcomponents/Navbar'
 import Hero from '../subcomponents/Hero';
 import Trending from '../subcomponents/Trending';
 import Footer from '../subcomponents/Footer';
+import Separator from '../subcomponents/Separator';
+import MovieBrowsing from '../subcomponents/MovieBrowsing';
 
 const Home = () => {
 	useEffect(() => {
@@ -14,8 +16,13 @@ const Home = () => {
   return (
 	<div className='w-full min-h-full h-full flex flex-col '> 
 	  <Navbar />
+	  <Separator />
 	  <Hero/>
+	  <Separator />
 	  <Trending />
+	  <Separator />
+	  <MovieBrowsing />
+	  <Separator />
 	  <Footer />
 	</div>
   )

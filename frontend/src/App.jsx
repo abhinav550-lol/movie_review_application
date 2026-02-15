@@ -18,7 +18,7 @@ import Signin from "./components/pages/Signin.jsx";
 import NonUserRoute from "./components/NonUserRoute.jsx";
 import LoadingPage from "./components/subcomponents/LoadingPage.jsx";
 import Signup from "./components/pages/Signup.jsx";
-
+import MovieInfo from "./components/pages/MovieInfo.jsx";
 
 function App() {
 	const dispatch = useDispatch();
@@ -65,6 +65,7 @@ function App() {
 	//}, []);
 
 	return (
+		<>
 		<BrowserRouter>
 			<ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={true} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition={Bounce} limit={1} stacked={true} />
 
@@ -72,6 +73,7 @@ function App() {
 				{/* Public Routes*/}
 				<Route path='/' element={<Navigate to='/home' />} />
 				<Route path="/home" element={<Home />} />
+				<Route path="/movies/:movieId" element={<MovieInfo />} /> 
 
 				{/* Public, but only accessible to non logged in users */}
 				<Route element={<NonUserRoute />}>
@@ -85,6 +87,7 @@ function App() {
 				</Route>
 			</Routes>
 		</BrowserRouter>
+		</>
 	)
 }
 
