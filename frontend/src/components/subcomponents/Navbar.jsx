@@ -7,7 +7,7 @@ const hamburgerMenuStyle = 'border border-gray-500 w-full h-1/3 flex items-cente
 const bigScreenOptions = 'options hover:underline text-xl cursor-pointer flex items-center';
 
 const Navbar = ({authControls = true}) => {
-	const {isAuthenticated : isLoggedIn } = useSelector((store) => store.auth);
+	const {isAuthenticated : isLoggedIn , user} = useSelector((store) => store.auth);
 
 	const [menuOpen , setMenuOpen] = useState(false);
 	
@@ -31,7 +31,7 @@ const Navbar = ({authControls = true}) => {
 		{/* Full Menu for larger screens -> Contains DarkMode SearchLink to browsing and Profile*/}
 		<div className="bigscreen-options hidden md:flex w-1/3 font-playfair">
 			<ul className="options flex justify-around w-full ">
-				<li className={bigScreenOptions} onClick={() => {navigate('/profile')}}>Profile</li>
+				<li className={bigScreenOptions} onClick={() => {navigate(`/profile/${user._id}`)}}>Profile</li>
 				<li className={bigScreenOptions} onClick={() => {navigate('/browse')}}>Search</li>
 				<li className={bigScreenOptions }><img src="/assets/dark-mode-icon.svg" className='bg-gray-200 w-full h-full rounded-full' alt="Dark Mode" /></li>
 			</ul>

@@ -12,41 +12,37 @@ import { setAuth, clearAuth } from './store/reducers/authSlice.js';
 import {Bounce, ToastContainer } from 'react-toastify';
 
 //Routes
+import LoadingPage from "./components/subcomponents/LoadingPage.jsx";
+
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Home from "./components/pages/Home.jsx";
 import Signin from "./components/pages/Signin.jsx";
 import NonUserRoute from "./components/NonUserRoute.jsx";
-import LoadingPage from "./components/subcomponents/LoadingPage.jsx";
 import Signup from "./components/pages/Signup.jsx";
 import MovieInfo from "./components/pages/MovieInfo.jsx";
+import Profile from "./components/pages/Profile.jsx";
 
 function App() {
 	const dispatch = useDispatch();
 
-	const { data, isLoading, error } = useQuery({
+	const { data, isLoading, isError , error } = useQuery({
 		queryKey: ["me"],
 		queryFn: fetchMe,
 		retry: false,
-		onSuccess: (data) => {
-			dispatch(setAuth(data.user));
-		},
-		onError: (err) => {
-			console.log(err)
-			dispatch(clearAuth());
-		},
 	});
 
 	//Auth Checker UseEffect
 	useEffect(() => {
 		if (isLoading) return;
-
+		
 		if (error) {
 			dispatch(clearAuth());
 			return;
 		}
 
-		if (data && data.user) dispatch(setAuth(data.user));
-	}, [data]);
+		if (data?.user) dispatch(setAuth(data.user));
+		else dispatch(clearAuth());
+	}, [isLoading, isError, data, dispatch]);
 
 
 	if (isLoading) return <LoadingPage />;
@@ -82,8 +78,8 @@ function App() {
 				</Route>
 
 				{/* Protected Routes */}
-				<Route element={<ProtectedRoute />}>
-
+				<Route element={<ProtectedRoute  />}>
+					<Route path="/profile/:userId" element={<Profile />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

@@ -42,7 +42,7 @@ const MovieBrowsing = () => {
 
 				{error && <div className="error flex flex-col justify-center items-center md:text-2xl">Failed to render movies. <div className='text-red-400 flex justify-center items-center'>{error?.message}</div></div>}
 				</div>
-				{!isLoading && !error &&
+				{
 					<div className="page-control flex justify-center gap-2 mt-4">
 						<button className={pageControlBtnStyles + (pageIndex === 1 ? " opacity-40 cursor-not-allowed" : "")} onClick={() => setPageIndex(prev => Math.max(1, prev - 1))} disabled={pageIndex === 1}>Previous</button>
 						<span className="page-number font-medium text-2xl flex justify-center items-center border-2 border-gray-500 p-1 px-4 ">{pageIndex}</span>

@@ -102,6 +102,7 @@ userController.getUserProfile = wrapAsyncErrors(async (req, res, next) => {
   const userData = foundUser.toObject();
   delete userData.password;
 
+
   res.status(200).json({
     success: true,
     message: "User profile fetched successfully",

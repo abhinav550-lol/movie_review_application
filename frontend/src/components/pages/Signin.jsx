@@ -33,7 +33,7 @@ const Signin = () => {
 			showToast(message , 'success');
 			
 			//Setting global auth state
-			dispatch(setAuth(user?._id))	
+			dispatch(setAuth(user))	
 			navigate('/home');
 		},
 

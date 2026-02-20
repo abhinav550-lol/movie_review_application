@@ -33,8 +33,9 @@ const Signup = () => {
 		onSuccess : (data) => {	
 			const {message , newUser : user} = data;
 			showToast(message , 'success');
+			
 			//Setting global auth state
-			dispatch(setAuth(user._id))	
+			dispatch(setAuth(user))	
 			navigate('/home');
 		},
 

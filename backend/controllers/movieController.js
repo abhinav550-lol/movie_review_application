@@ -37,7 +37,7 @@ movieController.viewAllMovies = wrapAsyncErrors(async (req, res, next) => {
 	const movies = await Movie.find().skip(offset).limit(limit);
 	const total_count = await Movie.countDocuments();
 
-	//Be sure to handle case where no movies are found in the frontend
+	//Be sure to handle case where no movies are found in the frontend 
 
 	return res.status(200).json({
 		success: true,
