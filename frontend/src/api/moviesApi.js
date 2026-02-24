@@ -12,3 +12,4 @@ export const fetchMoviesByPage = async (pageIndex) => {
 	const res = await axios.get(moviesByPageApi);
 	return res.data;
 }
+

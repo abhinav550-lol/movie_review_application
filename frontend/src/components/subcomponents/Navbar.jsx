@@ -2,8 +2,9 @@ import  { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Logo from './Logo';
+import Logout from './Logout.jsx';
 
-const hamburgerMenuStyle = 'border border-gray-500 w-full h-1/3 flex items-center justify-center cursor-pointer hover:bg-gray-300';
+const hamburgerMenuStyle = 'border border-black w-full h-1/3 flex items-center justify-center cursor-pointer hover:bg-gray-300';
 const bigScreenOptions = 'options hover:underline text-xl cursor-pointer flex items-center';
 
 const Navbar = ({authControls = true}) => {
@@ -13,7 +14,7 @@ const Navbar = ({authControls = true}) => {
 	
 	const navigate = useNavigate();	
   return (
-	<nav className='w-full h-24 flex items-center p-4 justify-between'>
+	<nav className='w-full h-24 flex items-center p-4 justify-between shadow-[0_4px_6px_-4px_rgba(0,0,0,0.08)]'>
 		<Logo color='#cf384d'/>
 		{/* Hamburger for phone layout -> Contains DarkMode SearchLink to browsing and Profile*/}
 		{authControls &&  (isLoggedIn ? (
@@ -21,10 +22,10 @@ const Navbar = ({authControls = true}) => {
 			<div className="hamburger md:hidden font-playfair  w-1/3 flex justify-end">
 			<img src="/assets/hamburger-menu.svg" alt="hamburger" className='w-1/3 max-w-1/4 cursor-pointer relative ' onClick={() => setMenuOpen((isOpen) => !isOpen)}/>
 			{menuOpen && (
-				<ul className="open-menu absolute bg-[#9e9d9db1]  h-40 w-1/3 max-w-36 min-w-25 top-10 right-2 translate-y-8 flex flex-col items-center justify-around border rounded ">
+				<ul className="open-menu absolute bg-[#9e9d9db1]  h-40 w-1/3 max-w-36 min-w-25 top-10 right-2 translate-y-8 flex flex-col items-center justify-around border rounded z-10">
 					<li className={hamburgerMenuStyle}  onClick={() => {setMenuOpen((isOpen) => !isOpen); navigate('/profile') }}>Profile</li>
 					<li className={hamburgerMenuStyle} onClick={() => {setMenuOpen((isOpen) => !isOpen); navigate('/browse')}}>Search</li>
-					<li className={hamburgerMenuStyle} onClick={() => {setMenuOpen((isOpen) => !isOpen) }}><img src="/assets/dark-mode-icon.svg" alt="Dark Mode" /></li>
+					{/*<li><Logout /></li>*/}
 				</ul>
 			)}
 		</div>
@@ -33,7 +34,7 @@ const Navbar = ({authControls = true}) => {
 			<ul className="options flex justify-around w-full ">
 				<li className={bigScreenOptions} onClick={() => {navigate(`/profile/${user._id}`)}}>Profile</li>
 				<li className={bigScreenOptions} onClick={() => {navigate('/browse')}}>Search</li>
-				<li className={bigScreenOptions }><img src="/assets/dark-mode-icon.svg" className='bg-gray-200 w-full h-full rounded-full' alt="Dark Mode" /></li>
+				{/*<li><Logout /></li>*/}
 			</ul>
 		</div>
 		</>
