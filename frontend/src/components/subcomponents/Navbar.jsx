@@ -25,7 +25,7 @@ const Navbar = ({authControls = true}) => {
 				<ul className="open-menu absolute bg-[#9e9d9db1]  h-40 w-1/3 max-w-36 min-w-25 top-10 right-2 translate-y-8 flex flex-col items-center justify-around border rounded z-10">
 					<li className={hamburgerMenuStyle}  onClick={() => {setMenuOpen((isOpen) => !isOpen); navigate('/profile') }}>Profile</li>
 					<li className={hamburgerMenuStyle} onClick={() => {setMenuOpen((isOpen) => !isOpen); navigate('/browse')}}>Search</li>
-					{/*<li><Logout /></li>*/}
+					<Logout classes={hamburgerMenuStyle + " bg-red-500"} />
 				</ul>
 			)}
 		</div>
@@ -34,7 +34,7 @@ const Navbar = ({authControls = true}) => {
 			<ul className="options flex justify-around w-full ">
 				<li className={bigScreenOptions} onClick={() => {navigate(`/profile/${user._id}`)}}>Profile</li>
 				<li className={bigScreenOptions} onClick={() => {navigate('/browse')}}>Search</li>
-				{/*<li><Logout /></li>*/}
+				<Logout classes={bigScreenOptions + " text-red-600"} />
 			</ul>
 		</div>
 		</>

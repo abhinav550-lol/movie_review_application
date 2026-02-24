@@ -19,3 +19,13 @@ export const fetchReviewsByUserId = async (userId) => {
 	});	
 	return res.data;
 }
+
+export const logoutUser = async () => {
+	const logoutApi = import.meta.env.VITE_BACKEND_URL + `/api/users/logout`;
+	const res = await axios.post(logoutApi, {} , {
+		withCredentials: true
+	});	
+
+	console.log(res.data)
+	return res.data;
+}
