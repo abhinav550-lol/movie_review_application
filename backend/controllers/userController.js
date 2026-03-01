@@ -71,7 +71,7 @@ userController.logoutUser = wrapAsyncErrors(async (req, res, next) => {
 		if(err) {
 			return next(new AppError("Error logging out", 500));
 		}
-
+		
 		res.status(200).json({
 			success: true,
 			message: "User logged out successfully"

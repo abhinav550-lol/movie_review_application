@@ -1,10 +1,15 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const Movie = ({ title, poster_url: posterUrl, vote_average: voteAverage, year }) => {
+const Movie = ({ title, poster_url: posterUrl, vote_average: voteAverage, year , _id : movieId }) => {
+	const navigate = useNavigate();
+	function movieClick(){
+		navigate(`/movies/${movieId}`);
+	}
 
 	//Add onclick event later when movie info page is ready
 	return (
-		<div className="movie-box  min-w-[280px] h-90 rounded-lg overflow-hidden relative cursor-pointer" title={title}>
+		<div className="movie-box  min-w-[280px] h-90 rounded-lg overflow-hidden relative cursor-pointer" title={title} onClick={movieClick}>
 			<div className="absolute bg-black  w-full h-full opacity-20 pointer-events-none z-1"></div>
 			<div className="movie-small-info absolute z-10 p-2 w-full flex flex-col gap-2 bottom-0 text-white">
 				<div className="flex flex-col">

@@ -9,11 +9,12 @@ const movieController = {};
 movieController.getMovieDetails = wrapAsyncErrors(async (req, res, next) => {
 	const { movieId } = req.params;
 
-	if (!movieId) {
+		if (!movieId) {
 		return next(new AppError("Please provide movie ID", 400));
 	}
 
 	const foundMovie = await Movie.findById(movieId);
+
 
 	if (!foundMovie) {
 		return next(new AppError("Movie not found", 404));

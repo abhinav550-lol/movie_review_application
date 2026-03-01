@@ -13,3 +13,8 @@ export const fetchMoviesByPage = async (pageIndex) => {
 	return res.data;
 }
 
+export const fetchMovieInfo = async (movieId) => {
+	const movieInfoApi = import.meta.env.VITE_BACKEND_URL + `/api/movies/${movieId}`;
+	const res = await axios.get(movieInfoApi);
+	return res.data;
+}

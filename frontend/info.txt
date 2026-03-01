@@ -26,9 +26,9 @@ cf384d (hover effect color - b32c3a)
 
 
 Next Agenda:
--Profile Page
--Movie Display Page
--Think about review implementation
+-Browsing 
+-Favorites
+-Reviews Implementation 
 
 
 Hero pics:

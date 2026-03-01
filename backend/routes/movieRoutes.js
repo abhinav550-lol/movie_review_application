@@ -12,7 +12,7 @@ router.get('/browse', movieController.browseMovies);
 router.get('/trending', movieController.getTrendingMovies);
 
 //Get movie details by movieId
-router.get('/:movieId', isLoggedIn, movieController.getMovieDetails);
+router.get('/:movieId', movieController.getMovieDetails);
 
 //Cards of movies on main page, this is paginated
 router.get('/', movieController.viewAllMovies);

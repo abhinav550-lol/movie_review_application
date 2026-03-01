@@ -21,6 +21,7 @@ import NonUserRoute from "./components/NonUserRoute.jsx";
 import Signup from "./components/pages/Signup.jsx";
 import MovieInfo from "./components/pages/MovieInfo.jsx";
 import Profile from "./components/pages/Profile.jsx";
+import Browsing from "./components/pages/Browsing.jsx";
 
 function App() {
 	const dispatch = useDispatch();
@@ -69,7 +70,9 @@ function App() {
 				{/* Public Routes*/}
 				<Route path='/' element={<Navigate to='/home' />} />
 				<Route path="/home" element={<Home />} />
-				<Route path="/movies/:movieId" element={<MovieInfo />} /> 
+				<Route path="/movies/:movieId" element={<MovieInfo />} /> 	
+				<Route path="/browse/" element={<Browsing />} /> 	
+						
 
 				{/* Public, but only accessible to non logged in users */}
 				<Route element={<NonUserRoute />}>
