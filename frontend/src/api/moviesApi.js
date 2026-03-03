@@ -18,3 +18,9 @@ export const fetchMovieInfo = async (movieId) => {
 	const res = await axios.get(movieInfoApi);
 	return res.data;
 }
+
+export const fetchMoviesBySearch = async (q, genre) => {
+	const searchApi = import.meta.env.VITE_BACKEND_URL + `/api/movies/browse?q=${q}&genre=${genre.join(",")}`;
+	const res = await axios.get(searchApi);
+	return res.data;
+}

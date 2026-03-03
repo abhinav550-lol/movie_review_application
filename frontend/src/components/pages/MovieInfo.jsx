@@ -36,7 +36,7 @@ const MovieInfo = () => {
 							<span key={index} className={genreStyles}>{genre}</span>
 						)}
 					</div >
-					<h2 className="overview-heading md:flex hidden  md:text-3xl tracking-wide">Overview</h2>
+					<h2 className="overview-heading md:flex hidden  md:text-3xl tracking-wider font-playfair">Overview</h2>
 					<div className="overview font-light text-xl text-center text-gray-600 md:text-2xl md:w-3/4 md:text-start">{movieData.movie.overview}</div>
 				</div>
 				<div className="stats flex flex-col md:gap-3 text-xl  justify-evenly md:items-start items-center md:justify-start md:text-2xl md:mt-10  gap-1 my-5 font-semibold text-gray-700 w-full ">
@@ -48,7 +48,7 @@ const MovieInfo = () => {
 			</div>
 			<Separator />
 			<div className="reviews flex w-full p-5 mt-5">
-				<h2 className="text-2xl md:text-3xl  mb-5 tracking-wide">Reviews</h2>
+				<h2 className="text-2xl md:text-3xl  mb-5 font-playfair tracking-wider">Reviews</h2>
 			</div>
 			<Separator />
 			<Footer />

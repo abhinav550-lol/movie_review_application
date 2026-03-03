@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const heroMovieClasses = "movie-image hover:outline-offset-[-3px] hover:scale-105  transition-all duration-300 ease-in-out rounded-lg hover:opacity-80 hover:translate hover:-translate-y-5 ";
 
 const Hero = () => {
+	const navigate = useNavigate();
 	const inputRef = useRef(null);
 
 	const placeholderTexts = [
@@ -15,6 +17,14 @@ const Hero = () => {
 
 		
 	];
+
+	function handleSubmit(e){
+		e.preventDefault();
+
+
+		const query = inputRef.current.value.trim();
+		if(query) navigate(`/browse?q=${encodeURIComponent(query)}`);
+	}
 
 	useEffect(() => {
 		let index = 0;
@@ -35,8 +45,8 @@ const Hero = () => {
 						<h1 className='text-md md:text-2xl lg:text-3xl font-bold tracking-wider whitespace-nowrap mb-4'>Find Your Next Favorite Movie.</h1>
 						<p className='text-sm md:text-lg lg:text-xl '>Write reviews, read perspectives, and connect with a community that lives for cinema.</p>
 					</div>
-					<form action="" className='flex w-full  md:w-9/10 min-w-50 flex-none'>
-						<input type="text" ref={inputRef} className='w-full h-12 bg-white outline-none text-sm lg:text-lg  text-black p-2 font-semibold ' placeholder='😮‍💨Browse your all-time classics!' />
+					<form action="" className='flex w-full  md:w-9/10 min-w-50 flex-none ' onSubmit={handleSubmit}>
+						<input type="text" ref={inputRef} className='w-full h-12 bg-white outline-none md:px-5   text-sm lg:text-lg  text-black p-2 font-semibold ' placeholder='😮‍💨Browse your all-time classics!' />
 						<button className='border bg-slate-800 cursor-pointer min-w-2/10 lg:min-w-1/10  flex justify-center items-center '><img src="/assets/double-right-arrow.svg" alt=">" className='rounded' /></button> {/* Replace with search icon and browsing functionality */}
 					</form>
 				</div>

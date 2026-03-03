@@ -64,14 +64,14 @@ function App() {
 	return (
 		<>
 		<BrowserRouter>
-			<ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={true} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition={Bounce} limit={1} stacked={true} />
+			<ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={true} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition={Bounce} limit={1} stacked={true} />
 
 			<Routes>
 				{/* Public Routes*/}
 				<Route path='/' element={<Navigate to='/home' />} />
 				<Route path="/home" element={<Home />} />
 				<Route path="/movies/:movieId" element={<MovieInfo />} /> 	
-				<Route path="/browse/" element={<Browsing />} /> 	
+				<Route path="/browse" element={<Browsing />} /> 	
 						
 
 				{/* Public, but only accessible to non logged in users */}
