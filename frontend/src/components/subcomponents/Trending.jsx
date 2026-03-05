@@ -25,7 +25,7 @@ const Trending = () => {
 		<Marquee className="trending-marquee"  autoFill={true} speed={30} gradient={true} gradientColor='white'  gradientWidth={20}>
 			{
 				data?.movies.map((movie) => {
-					return <div className="mx-2 lg:mx-4 "  key={movie.id}><Movie {...movie}/></div>
+					return <div className="mx-2 lg:mx-4 "  key={movie.id}><Movie {...movie} controls={false} /></div>
 				})
 			}
 		</Marquee>

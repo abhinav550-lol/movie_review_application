@@ -24,3 +24,15 @@ export const fetchMoviesBySearch = async (q, genre) => {
 	const res = await axios.get(searchApi);
 	return res.data;
 }
+
+export const addToFavorite = async(movieId) => {
+	const addToFavApi = import.meta.env.VITE_BACKEND_URL + `/api/movies/${movieId}/favorites`;
+	const res = await axios.post(addToFavApi, {}, { withCredentials: true });
+	return res.data;
+}
+
+export const removeFromFavorite = async(movieId) => {
+	const addToFavApi = import.meta.env.VITE_BACKEND_URL + `/api/movies/${movieId}/favorites`;
+	const res = await axios.delete(addToFavApi, { withCredentials: true });
+	return res.data;
+}

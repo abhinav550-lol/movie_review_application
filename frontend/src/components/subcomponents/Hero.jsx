@@ -46,7 +46,7 @@ const Hero = () => {
 						<p className='text-sm md:text-lg lg:text-xl '>Write reviews, read perspectives, and connect with a community that lives for cinema.</p>
 					</div>
 					<form action="" className='flex w-full  md:w-9/10 min-w-50 flex-none ' onSubmit={handleSubmit}>
-						<input type="text" ref={inputRef} className='w-full h-12 bg-white outline-none md:px-5   text-sm lg:text-lg  text-black p-2 font-semibold ' placeholder='😮‍💨Browse your all-time classics!' />
+						<input type="text" ref={inputRef} className='w-full h-12 bg-white outline-none md:px-5   text-sm lg:text-lg  text-gray-600 p-2 font-bold ' placeholder='😮‍💨Browse your all-time classics!' />
 						<button className='border bg-slate-800 cursor-pointer min-w-2/10 lg:min-w-1/10  flex justify-center items-center '><img src="/assets/double-right-arrow.svg" alt=">" className='rounded' /></button> {/* Replace with search icon and browsing functionality */}
 					</form>
 				</div>
