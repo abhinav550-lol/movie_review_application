@@ -4,10 +4,10 @@ import mongoose from 'mongoose'
 
 const reviewSchema = new mongoose.Schema({
 	review_rating : {
-		type : Number,
+		type : mongoose.Types.Decimal128,
 		required : [true, "Review rating is required"],
-		min : [1, "Minimum rating is 1"],
-		max : [5, "Maximum rating is 5"]
+		min : [1.0, "Minimum rating is 1"],
+		max : [5.0, "Maximum rating is 5"]
 	},
 	review_heading:{
 		type : String,

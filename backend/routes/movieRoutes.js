@@ -18,10 +18,10 @@ router.get('/:movieId', movieController.getMovieDetails);
 router.get('/', movieController.viewAllMovies);
 
 //Current user can add to favorites
-router.post('/:movieId/favourites', isLoggedIn, movieController.addToFavourites);
+router.post('/:movieId/favorites', isLoggedIn, movieController.addToFavourites);
 
 //Current user can remove from favorites
-router.delete('/:movieId/favourites', isLoggedIn, movieController.removeFromFavourites);
+router.delete('/:movieId/favorites', isLoggedIn, movieController.removeFromFavourites);
 
 
 export default router;

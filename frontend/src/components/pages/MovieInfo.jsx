@@ -6,6 +6,7 @@ import ErrorPage from '../subcomponents/ErrorPage';
 import Navbar from '../subcomponents/Navbar';
 import Footer from '../subcomponents/Footer';
 import Separator from '../subcomponents/Separator';
+import Review from '../subcomponents/Review';
 import ProtectedControls from '../subcomponents/ProtectedControls';
 import Snowfall from 'react-snowfall';
 import { showToast } from '../../utils/utils';
@@ -70,17 +71,15 @@ const MovieInfo = () => {
 					<span className="favoritedBy">Favorite of: {movieData.movie.favourited_by.length} users </span>
 					<ProtectedControls  message="Please login to add to favorites!" classes="mt-5">
 						{isAuthChecked && isAuthenticated && movieData?.movie?.favourited_by?.includes(user._id) ? (
-							<button onClick={removeFromFavoriteFn} className="px-5 py-2 bg-[#cf384d] text-white rounded-md hover:bg-[#cf384d] transition">Remove from Favorites</button>
+							<button onClick={removeFromFavoriteFn} className="px-5 py-2 bg-[#cf384d] text-white rounded-md hover:bg-[#f35f72] transition">Remove from Favorites</button>
 						) : (
-							<button onClick={addToFavoriteFn} className="px-5 py-2 bg-[#cf384d] text-white rounded-md hover:bg-[#cf384d] transition">Add to Favorites</button>
+							<button onClick={addToFavoriteFn} className="px-5 py-2 bg-[#cf384d] text-white rounded-md hover:bg-[#f35f72] transition ">Add to Favorites</button>
 						)}
 					</ProtectedControls>
 				</div>
 			</div>
 			<Separator />
-			<div className="reviews flex w-full p-5 mt-5">
-				<h2 className="text-2xl md:text-3xl  mb-5 font-playfair tracking-wider">Reviews</h2>
-			</div>
+				<Review movieId={movieId}/>
 			<Separator />
 			<Footer />
 		</div>

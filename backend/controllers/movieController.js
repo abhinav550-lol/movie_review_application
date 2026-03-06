@@ -9,7 +9,7 @@ const movieController = {};
 movieController.getMovieDetails = wrapAsyncErrors(async (req, res, next) => {
 	const { movieId } = req.params;
 
-		if (!movieId) {
+	if (!movieId) {
 		return next(new AppError("Please provide movie ID", 400));
 	}
 
@@ -51,8 +51,10 @@ movieController.viewAllMovies = wrapAsyncErrors(async (req, res, next) => {
 
 //Browse for movies, by name...... also adding filters, like genres
 movieController.browseMovies = wrapAsyncErrors(async (req, res, next) => {
-	const { name, genre } = req.query;
-	const limit = 10;
+	const { q : name, genre } = req.query;
+
+	console.log(genre)
+	const limit = 20;
 
 	const filters = {};
 
@@ -119,13 +121,13 @@ movieController.addToFavourites = wrapAsyncErrors(async (req, res, next) => {
 		success: true,
 		message: "Movie added to favourites",
 		user,
-		movie : foundMovie
+		movie: foundMovie
 	});
 })
 
 
 movieController.removeFromFavourites = wrapAsyncErrors(async (req, res, next) => {
-		const userId = req.session.userId;
+	const userId = req.session.userId;
 
 	if (!userId) {
 		return next(new AppError("User not logged in", 401));
@@ -163,24 +165,24 @@ movieController.removeFromFavourites = wrapAsyncErrors(async (req, res, next) =>
 		success: true,
 		message: "Movie removed from favourites",
 		user,
-		movie : foundMovie
+		movie: foundMovie
 	});
 
-});						
+});
 
 movieController.getTrendingMovies = wrapAsyncErrors(async (req, res, next) => {
-	const trendingMovies = await Movie.find( {
-		year : { $gte: 2020} ,
-		vote_average : { $gte: 8.5 }
+	const trendingMovies = await Movie.find({
+		year: { $gte: 2020 },
+		vote_average: { $gte: 8.5 }
 	}).limit(20);
 
 	trendingMovies.sort((a, b) => b.vote_average - a.vote_average);
 
 	return res.status(200).json({
-		success : true,
-		message : "Trending movies fetched successfully",
-		count : trendingMovies.length,
-		movies : trendingMovies,
+		success: true,
+		message: "Trending movies fetched successfully",
+		count: trendingMovies.length,
+		movies: trendingMovies,
 	})
 });
 

@@ -6,16 +6,18 @@ import { fetchFavMoviesByUserId, fetchReviewsByUserId, fetchUserProfile } from '
 import LoadingPage from '../subcomponents/LoadingPage.jsx';
 import Movie from '../subcomponents/Movie.jsx';
 import { MoonLoader } from 'react-spinners';
+import ReviewCard from '../subcomponents/ReviewCard.jsx';
 
 
 const Profile = () => {
 	const { userId } = useParams();
 	const { data: userData, isLoading : isUserLoading, isError : isUserError } = useQuery({ queryKey: ['userProfile', userId], queryFn: () => fetchUserProfile(userId) });
-	const { data: favMoviesData, isLoading : isFavMovieLoading,isError: isFavMovieError } = useQuery({ queryKey: ['userFavMovies', userId], queryFn: () => fetchFavMoviesByUserId(userId) });
+	const { data: favMoviesData, isLoading : isFavMovieLoading,isError: isFavMovieError , refetch : UserFavMoviesRefetch} = useQuery({ queryKey: ['userFavMovies', userId], queryFn: () => fetchFavMoviesByUserId(userId) });
 	const { data: userReviewsData, isLoading : isUserReviewsLoading,isError: isUserReviewsError } = useQuery({ queryKey: ['userReviews', userId], queryFn: () => fetchReviewsByUserId(userId) });
 
 
 	if (isUserLoading) return <LoadingPage />
+
 	return (
 <div className="min-h-screen flex flex-col">
   <Navbar authControls={false} />
@@ -35,8 +37,8 @@ const Profile = () => {
 		<div className="profileLogo w-25 h-25 rounded-full  bg-[#971297] flex justify-center items-center text-white border-4 border-gray-300">
 			<div className="text-5xl capitalize">{userData?.user?.username[0]}</div>
 		</div>
-		<div className="flex flex-col items-center md:items-start gap-2 ">
-		<div className="name text-center py-1 text-xl">
+		<div className="flex flex-col items-center  gap-2 ">
+		<div className="name text-center py-1 text-xl  ">
             @{userData?.user?.username}
           </div>
           <div className="name text-center py-1 text-md text-gray-400">
@@ -62,7 +64,7 @@ const Profile = () => {
                 />
               ) : favMoviesData?.movies?.length > 0 ? (
                 favMoviesData.movies.map((movie) => (
-                  <Movie key={movie.id} {...movie} />
+                  <Movie key={movie.id} {...movie} parentRefetch={UserFavMoviesRefetch} />
                 ))
               ) : (
                 isFavMovieError ? (
@@ -83,7 +85,7 @@ const Profile = () => {
             <div className="fav-movies-title font-medium text-md lg:text-2xl mb-4 font-playfair underline tracking-wider">
               {userData?.user?.username}'s reviews
             </div>
-            <div className="reviews flex flex-col gap-4 flex-1 ">
+            <div className="reviews flex flex-col gap-4 flex-1 p-2">
               {
 				!isUserReviewsError && isUserReviewsLoading ? (
 				<MoonLoader
@@ -92,12 +94,14 @@ const Profile = () => {
                   speedMultiplier={0.5}
                 />
 				) : isUserReviewsError ? (
-                  <div className="text-red-500 flex justify-center items-center  w-full h-full py-4 flex-1">
+                  <div className="text-red-500 flex justify-center items-center  w-full h-full py-4 flex-1 ">
                     Error loading user reviews.
                   </div>
                 ) : (
                   userReviewsData?.reviews?.length > 0 ? (
-					  <>{/* Add loaded reviews  */} </>
+					userReviewsData.reviews.map((review) => (
+						<ReviewCard key={review._id} {...review} showMovieInfo={true} redirectToMovie={true} />
+					))
 				  ) : (
 					<div className="text-gray-500 flex justify-center items-center  w-full h-full py-4 flex-1 lg:text-xl">
                       Users has no reviews.

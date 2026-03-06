@@ -14,6 +14,7 @@ const Movie = ({
   vote_average: voteAverage,
   year,
   _id: movieId,
+  parentRefetch,
   controls = true,
 }) => {
   const { isAuthenticated, isAuthChecked , user } = useSelector((store) => store.auth);
@@ -39,6 +40,7 @@ const Movie = ({
 		const res = await addToFavorite(movieId);
 		showToast(res?.message || "Added to favorites!" , "success")
 		movieRefetch();
+		if(parentRefetch) parentRefetch();
 	}catch(err){
 		showToast(err.response?.data?.message || "Something went wrong" , "error")
 	}
@@ -49,6 +51,7 @@ const Movie = ({
 		const res = await removeFromFavorite(movieId);
 		showToast(res?.message || "Removed from favorites!" , "success")
 		movieRefetch();
+		if(parentRefetch) parentRefetch();
 	}catch(err){
 		showToast(err.response?.data?.message || "Something went wrong" , "error")
 	}
