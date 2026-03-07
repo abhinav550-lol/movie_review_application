@@ -25,8 +25,8 @@ const {data : reviewsData , refetch : reviewsRefetch} = useQuery({
     "review_text": "",
   };
 
-  const [userReview, setUserReview] = useState(initialState);
   const [addReviewFormVisible, setAddReviewFormVisible] = useState(false);
+  const [userReview, setUserReview] = useState(initialState);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -107,6 +107,14 @@ const {data : reviewsData , refetch : reviewsRefetch} = useQuery({
               precision={0.5}
 			  onChange={onInputChange}
               size="large"
+			sx={{
+                "& .MuiRating-iconFilled": {
+                  color: "#cf384d",
+                },
+                "& .MuiRating-iconEmpty": {
+                  color: "#f3b7bf",
+                },
+              }}
             />
           </div>
           <div className="form-group flex flex-col gap-1">
@@ -128,13 +136,13 @@ const {data : reviewsData , refetch : reviewsRefetch} = useQuery({
         </form>
 
 )}
-	<div className="reviews-list w-full h-fit mt-10  flex flex-col justify-center items-center md:items-start  p-2 gap-5">
+	<div className="reviews-list w-full h-fit mt-10  flex flex-col justify-center items-center md:items-start  p-2 gap-5 ">
 		{reviewsData?.reviews?.length > 0 ? (
-			<div className="flex flex-col gap-5">
-				{reviewsData.reviews.map((review) => (
-					<ReviewCard {...review} />
+				<>
+				{reviewsData?.reviews.map((review) => (
+					<ReviewCard {...review} parentRefetch={reviewsRefetch}/>
 				))}
-			</div>
+				</>
 		) : (
 			<p className="text-gray-600 text-2xl text-wrap text-center w-full my-10">No reviews yet. Be the first to review this movie!</p>
 		)}

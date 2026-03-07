@@ -38,7 +38,7 @@ const Hero = () => {
 
 	return (
 		<>
-			<div className="min-h-[calc(100vh-6rem)] w-full bg-linear-to-r from-[#cf384d] to-[#af0000] flex  justify-center items-center text-white p-2  gap-4 relative">
+		<div className="min-h-[calc(100vh-6rem)] w-full bg-linear-to-r from-[#cf384d] to-[#af0000] flex  justify-center items-center text-white p-2  gap-4 relative">
 				<img src="/assets/polka-dot-hero.svg" className="absolute inset-0 w-full h-full object-cover opacity-3 pointer-events-none"/>
 				<div className="flex flex-col justify-center items-start w-4/5 md:w-1/2 gap-4 p-2 ">
 					<div className="hero-content">

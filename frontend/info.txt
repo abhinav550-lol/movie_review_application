@@ -26,10 +26,8 @@ cf384d (hover effect color - b32c3a)
 
 
 Next Agenda:
--Browsing 
--Favorites
--Reviews Implementation 
-
+-Review Deletion And Editing (With auth access only)
+-Downvoting and Upvoting Reviews, with fetching user vote data and displaying it on the frontend
 
 Hero pics:
 spider man no way home https://image.tmdb.org/t/p/original/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg

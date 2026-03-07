@@ -135,6 +135,7 @@ reviewController.getReviewsByMovie = wrapAsyncErrors(async (req, res, next) => {
 
 //Delete a review on a movie
 reviewController.deleteReview = wrapAsyncErrors(async (req, res, next) => {
+	
 	const userId = req.session.userId;
 	if(!userId){
 		return next(new AppError("User not logged in", 401));

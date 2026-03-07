@@ -7,7 +7,8 @@ import { MoonLoader } from "react-spinners";
 import ProtectedControls from "../subcomponents/ProtectedControls";
 import { useSelector } from "react-redux";
 import { showToast } from "../../utils/utils";
-
+import CloseIcon from '@mui/icons-material/Close';
+import AddIcon from '@mui/icons-material/Add';
 const Movie = ({
   title,
   poster_url: posterUrl,
@@ -80,14 +81,14 @@ const Movie = ({
           ></div>
           {controls && <ProtectedControls message="Please login to add to favorites!">
             {isAuthChecked && isAuthenticated && movieData?.movie?.favourited_by.includes(user?._id) ? 
-				<div className="h-8 w-8 absolute right-0 m-2 bg-red-200 rounded-md opacity-50 text-3xl flex items-center justify-center  text-center md:text-3xl z-15 cursor-pointer" title="Remove from favorites" onClick={removeFromFavoriteFn}>x</div>
+				<div className="h-8 w-8 absolute right-0 m-2 bg-red-200 rounded-md opacity-50 text-3xl flex items-center justify-center  text-center md:text-3xl z-15 cursor-pointer" title="Remove from favorites" onClick={removeFromFavoriteFn}><CloseIcon /></div>
 			: (
               <div
                 className="h-8 w-8 absolute right-0 m-2 bg-emerald-200 rounded-md opacity-50 text-3xl flex items-center justify-center text-center md:text-3xl z-15 cursor-pointer"
                 title="Add to favorites"
                 onClick={addToFavoriteFn}
               >
-                +
+                <AddIcon />
               </div>
             )}
           </ProtectedControls>}
@@ -109,6 +110,7 @@ const Movie = ({
           <img
             src={posterUrl}
             alt={title}
+			loading="lazy"
             className="w-full h-full object-cover  transition-transform duration-300 ease-out hover:scale-110"
           />
         </>
