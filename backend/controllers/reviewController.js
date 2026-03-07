@@ -200,6 +200,7 @@ reviewController.getAllUserReviews = wrapAsyncErrors(async (req, res, next) => {
 reviewController.upvoteReview = wrapAsyncErrors(async (req, res, next) => {
 	const userId = req.session.userId;
 
+
 	if(!userId){
 		return next(new AppError("User not logged in", 401));
 	}
@@ -226,6 +227,7 @@ reviewController.upvoteReview = wrapAsyncErrors(async (req, res, next) => {
 	let foundReaction = await ReviewReaction.findOne({review_id : foundReview._id , user_id : foundUser._id});
 
 	if(!foundReaction){
+		console.log("No reaction found, adding upvote");
 		foundReaction = await ReviewReaction.create({review_id : foundReview._id , user_id : foundUser._id , reaction_type : 'upvote'});
 		foundReview.upvotes += 1;
 		message = "Upvote added successfully";
@@ -242,6 +244,9 @@ reviewController.upvoteReview = wrapAsyncErrors(async (req, res, next) => {
 			message = "Upvote added successfully";
 		}
 	}
+
+
+	console.log(foundReview);
 
 	await foundReview.save();
 

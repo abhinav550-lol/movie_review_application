@@ -16,7 +16,7 @@ const reviewReactionSchema = new mongoose.Schema({
 		enum : ['upvote', 'downvote'],
 		required : [true, "Reaction type is required"]
 	}
-}, {_id : false});
+});
 
 reviewReactionSchema.index({ review_id: 1, user_id: 1 }, { unique: true });
 

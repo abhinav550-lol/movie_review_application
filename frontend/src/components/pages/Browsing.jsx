@@ -143,9 +143,10 @@ const Browsing = () => {
           Results for: {q}
         </h1>
       ) : (
-        <h1 className="my-10 text-xl text-center md:text-3xl text-gray-600">
+       (selectedGenres.length != 0 ? <div className="my-10"> </div> :  
+	   <h1 className="my-10 text-xl text-center md:text-3xl text-gray-600">
           Search for movies to browse reviews and ratings!
-        </h1>
+        </h1>)
       )}
 
       {/* Loading / Error */}

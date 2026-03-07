@@ -100,7 +100,7 @@ const Profile = () => {
                 ) : (
                   userReviewsData?.reviews?.length > 0 ? (
 					userReviewsData.reviews.map((review) => (
-						<ReviewCard key={review._id} {...review} showMovieInfo={true} redirectToMovie={true} />
+						<ReviewCard key={review._id} {...review} showMovieInfo={true} redirectToMovie={true} updateDeleteButtons={false} disableVoting={true}/>
 					))
 				  ) : (
 					<div className="text-gray-500 flex justify-center items-center  w-full h-full py-4 flex-1 lg:text-xl">

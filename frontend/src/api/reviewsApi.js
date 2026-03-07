@@ -24,3 +24,21 @@ export async function editReview(reviewId , userEditedReview) {
 	return res.data;
 }
 
+export async function upvoteReview(reviewId){
+	const upvoteReviewApi = import.meta.env.VITE_BACKEND_URL + `/api/reviews/${reviewId}/upvote`;
+	const res = await axios.post(upvoteReviewApi, {} , { withCredentials: true });
+	return res.data;
+}
+
+export async function downvoteReview(reviewId){
+	const downvoteReviewApi = import.meta.env.VITE_BACKEND_URL + `/api/reviews/${reviewId}/downvote`;
+	const res = await axios.post(downvoteReviewApi , {} , { withCredentials: true });
+	return res.data;
+}
+
+export async function getUserReviewReaction(reviewId , setReviewReaction){
+	const getUserReactionApi = import.meta.env.VITE_BACKEND_URL + `/api/reviews/${reviewId}/reactions`;
+	const res = await axios.get(getUserReactionApi , { withCredentials: true });
+	setReviewReaction((e) => res.data?.user_reaction || null);
+	return res.data;
+}

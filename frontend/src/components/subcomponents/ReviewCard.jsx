@@ -11,8 +11,9 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
-import {  deleteReview, editReview } from "../../api/reviewsApi";
+import {  deleteReview, editReview , upvoteReview , downvoteReview , getUserReviewReaction} from "../../api/reviewsApi";
 import { showToast } from "../../utils/utils";
+import ProtectedControls from "./ProtectedControls";
 
 
 const labelClass = "text-md text-xl lg:text-[22px] ";
@@ -30,16 +31,12 @@ const ReviewCard = ({
 	user_id: userId,
 	_id: reviewId,
 
-	// optional props for conditional styling / actions
-	hasUpvoted = false,
-	hasDownvoted = false,
-	onUpvote,
-	onDownvote,
 
 	//
 	showMovieInfo = false,
 	redirectToMovie = false,
 	updateDeleteButtons = true,
+	disableVoting=false,
 
 	parentRefetch,
 }) => {
@@ -59,6 +56,15 @@ const ReviewCard = ({
 		queryFn: () => fetchUserProfile(userId),
 		enabled: !!userId,
 	});
+	
+	//Getting review reactions
+	const [reviewReaction , setReviewReaction] = useState(null);
+	const {data : ReviewReactionData , isLoading : isReviewReactionLoading , isError : isReviewReactionError , refetch :userReviewReactionRefetch}= useQuery({
+		queryKey : ["reviewReaction" , userId , upvotes , downvotes],
+		queryFn : () => getUserReviewReaction(reviewId , setReviewReaction),
+		enabled : !!isAuthenticated && !!userId,
+	})
+
 
 	const username =
 		userData?.user?.username ||
@@ -76,6 +82,8 @@ const ReviewCard = ({
 		})
 		: "Unknown time";
 
+	
+   //Edit form state
 	const initialState = {
 		review_heading,
 		review_text,
@@ -89,7 +97,6 @@ const ReviewCard = ({
 
 		try {
 			const editedReview = await editReview(reviewId, userEditedReview);
-			console.log(editedReview)
 			showToast(
 				editedReview?.message || "Review added successfully",
 				"success",
@@ -98,7 +105,6 @@ const ReviewCard = ({
 			setEditMode(false);
 			setUserEditedReview(initialState);
 		} catch (e) {
-			console.log(e)
 			showToast(e?.response?.data?.message || "Failed to add review", "error");
 		}
 	}
@@ -124,13 +130,51 @@ const ReviewCard = ({
 		}
 	}
 
-	const navigate = useNavigate();
+	//Upvoting and Downvoting 
+	async function handleUpvote(){
+		if(disableVoting) return ;
+		try{
+			const upvoteReviewRes = await upvoteReview(reviewId);
 
+			parentRefetch();
+			userReviewReactionRefetch();
+			showToast(
+				upvoteReviewRes?.message || "Review upvoted successfully",
+				"success"
+			);
+
+		}catch(e){
+			showToast(
+				e?.response?.data?.message || "Failed to upvote review",
+				"error"
+			);	
+		}
+	}
+
+	async function handleDownvote(){
+		if(disableVoting) return ;
+		try{
+			const downVoteRes = await downvoteReview(reviewId);
+			parentRefetch();
+			userReviewReactionRefetch();
+			showToast(
+				downVoteRes?.message || "Review downvoted successfully",
+				"success"
+			);
+		}catch(e){
+			showToast(
+				e?.response?.data?.message || "Failed to downvote review",
+				"error"
+			)
+		}
+	}
+
+	const navigate = useNavigate();
 	return (
 		<div className="w-full lg:max-w-3/5 self-center">
 			<div
 				className={`w-full rounded-2xl border border-[#cf384d]/15 bg-white shadow-sm transition-all duration-200  hover:shadow-md ${redirectToMovie && "cursor-pointer"}`}
-				onClick={() => redirectToMovie && navigate(`/movies/${movieId._id}`)}
+				onClickCapture={() => redirectToMovie && navigate(`/movies/${movieId._id}`)}
 			>
 				<div className="p-5 sm:p-6">
 					{/* Top section */}
@@ -196,29 +240,33 @@ const ReviewCard = ({
 
 					{/* Actions */}
 					<div className="flex flex-wrap items-center gap-3 w-full md:w-fit ">
+					<ProtectedControls classes="cursor-pointer" message={"Please login to upvote!"}>
 						<button
 							type="button"
-							onClick={() => onUpvote?.(reviewId)}
-							className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-medium transition-all duration-200 ${hasUpvoted
-									? "border-[#cf384d] bg-[#cf384d] text-white shadow-sm"
-									: "border-gray-200 bg-gray-50 text-gray-600 hover:border-[#cf384d]/40 hover:text-[#cf384d]"
-								}`}
+							onClick={() => handleUpvote?.(reviewId)}
+							className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-medium transition-all duration-200 ${reviewReaction && reviewReaction === "upvote"
+								? "border-[#cf384d] bg-[#cf384d] text-white shadow-sm"
+								: "border-gray-200 bg-gray-50 text-gray-600 hover:border-[#cf384d]/40 hover:text-[#cf384d]"
+							}`}
 						>
 							<ThumbUpAltOutlinedIcon sx={{ fontSize: 18 }} />
 							<span>{upvotes}</span>
 						</button>
-
-						<button
-							type="button"
-							onClick={() => onDownvote?.(reviewId)}
-							className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-medium transition-all duration-200 ${hasDownvoted
-									? "border-[#cf384d] bg-[#cf384d] text-white shadow-sm"
-									: "border-gray-200 bg-gray-50 text-gray-600 hover:border-[#cf384d]/40 hover:text-[#cf384d]"
-								}`}
-						>
-							<ThumbDownAltOutlinedIcon sx={{ fontSize: 18 }} />
-							<span>{downvotes}</span>
-						</button>
+						</ProtectedControls>
+							
+						<ProtectedControls classes="cursor-pointer" message={"Please login to downvote!"}>
+							<button
+								type="button"
+								onClick={() => handleDownvote?.(reviewId)}
+								className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-medium transition-all duration-200 ${reviewReaction && reviewReaction === "downvote"
+										? "border-[#cf384d] bg-[#cf384d] text-white shadow-sm"
+										: "border-gray-200 bg-gray-50 text-gray-600 hover:border-[#cf384d]/40 hover:text-[#cf384d]"
+									}`}
+							>
+								<ThumbDownAltOutlinedIcon sx={{ fontSize: 18 }} />
+								<span>{downvotes}</span>
+							</button>
+						</ProtectedControls>
 
 						{updateDeleteButtons && isAuthenticated && user._id === userId && (
 							<div className="flex items-center gap-5 ml-auto w-full  md:w-fit ">
