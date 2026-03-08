@@ -23,7 +23,7 @@ const Navbar = ({authControls = true}) => {
 			<img src="/assets/hamburger-menu.svg" alt="hamburger" className='w-1/3 max-w-1/4 cursor-pointer relative ' onClick={() => setMenuOpen((isOpen) => !isOpen)}/>
 			{menuOpen && (
 				<ul className="open-menu absolute bg-[#9e9d9db1]  h-40 w-1/3 max-w-36 min-w-25 top-10 right-2 translate-y-8 flex flex-col items-center justify-around border rounded z-10">
-					<li className={hamburgerMenuStyle}  onClick={() => {setMenuOpen((isOpen) => !isOpen); navigate('/profile') }}>Profile</li>
+					<li className={hamburgerMenuStyle}  onClick={() => {setMenuOpen((isOpen) => !isOpen); navigate(`/profile/${user._id}`) }}>Profile</li>
 					<li className={hamburgerMenuStyle} onClick={() => {setMenuOpen((isOpen) => !isOpen); navigate('/browse')}}>Search</li>
 					<Logout classes={hamburgerMenuStyle + " bg-red-500"} />
 				</ul>

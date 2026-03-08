@@ -25,6 +25,8 @@ import Browsing from "./components/pages/Browsing.jsx";
 
 function App() {
 	const dispatch = useDispatch();
+	const { isAuthenticated, isAuthChecked , user } = useSelector((store) => store.auth);
+
 
 	const { data, isLoading, isError , error } = useQuery({
 		queryKey: ["me"],
@@ -43,28 +45,16 @@ function App() {
 
 		if (data?.user) dispatch(setAuth(data.user));
 		else dispatch(clearAuth());
+		
+
 	}, [isLoading, isError, data, dispatch]);
-
-
+	
+	
 	if (isLoading) return <LoadingPage />;
-
-
-	//Dark Mode
-	//useEffect(() => {
-	//const theme = localStorage.getItem("darkMode");
-
-	//if (theme === "yes") {
-	//	document.documentElement.classList.add("dark");
-	//} else {
-	//	document.documentElement.classList.remove("dark");
-	//	localStorage.setItem("darkMode", "no");
-	//}
-	//}, []);
-
 	return (
 		<>
+			<ToastContainer position="top-center"  autoClose={3000} hideProgressBar={false} newestOnTop={true} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition={Bounce} limit={1} stacked={true}/>	
 		<BrowserRouter>
-			<ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={true} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition={Bounce} limit={1} stacked={true} />
 
 			<Routes>
 				{/* Public Routes*/}

@@ -82,3 +82,9 @@
     opacity: 0;
   }
 }
+
+.Toastify__toast-container--top-center {
+  top: 1em;
+  left: 50%;
+  transform: translateX(-50%);
+}

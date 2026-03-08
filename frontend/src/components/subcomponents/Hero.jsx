@@ -52,9 +52,9 @@ const Hero = () => {
 				</div>
 
 				<div className="hero-movie-titles md:grid md:grid-cols-3 hidden max-w-1/3 h-7-10 gap-3">
-					<div  className={heroMovieClasses + "outline-2 outline-black"}><img src="https://image.tmdb.org/t/p/original/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg"   alt="" />  </div>
-					<div  className={heroMovieClasses + "outline-2 outline-black"}><img src="https://image.tmdb.org/t/p/original/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg"  alt="" />  </div>
-					<div  className={heroMovieClasses + "outline-2 outline-black"}><img src="https://image.tmdb.org/t/p/original/h8Rb9gBr48ODIwYUttZNYeMWeUU.jpg"  alt="" />  </div>
+					<div  className={heroMovieClasses  }><img src="https://image.tmdb.org/t/p/original/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg"   alt="" className={heroMovieClasses}/>  </div>
+					<div  className={heroMovieClasses  }><img src="https://image.tmdb.org/t/p/original/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg"  alt="" className={heroMovieClasses}/>  </div>
+					<div  className={heroMovieClasses }><img src="https://image.tmdb.org/t/p/original/h8Rb9gBr48ODIwYUttZNYeMWeUU.jpg"  alt="" className={heroMovieClasses}	/>  </div>
 				</div>
 
 				<div className={"scroll scale-50"}></div>

@@ -13,15 +13,19 @@ import reviewRoutes from './routes/reviewRoutes.js'
 
 const app = express();
 
-//Configurations
+app.set("trust proxy", 1);
+
+const isProduction = process.env.NODE_ENV === "production";
+
 app.use(
   session({
-    secret: "your-secret-key",      // 🔐 used to sign the session ID cookie
+    secret: process.env.SESSION_SECRET,      // 🔐 used to sign the session ID cookie
     resave: false,                  // don't save session if unmodified
     saveUninitialized: false,       // don't create session until something stored
     cookie: {
       httpOnly: true,               // prevents client-side JS from reading the cookie
-      secure: false,                // true in production with HTTPS
+      secure: isProduction,   				 // true in production with HTTPS
+      sameSite: isProduction ? "none" : "lax",  // "none" for cross-site in production, "lax" for development
       maxAge: 1000 * 7 * 60 * 60 * 24,  // 7 days
     },
   })

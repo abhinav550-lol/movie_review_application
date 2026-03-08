@@ -12,8 +12,8 @@ const Footer = () => {
 		<div className="connect w-1/4 flex flex-col gap-2 my-5 md:my-1 ">
 			<h2 className='text-xl md:text-2xl font-medium text-black'>Connect</h2>
 			<ul className="flex flex-col gap-4">
-				<li><a className='text-gray-200 flex gap-2 font-karla cursor-pointer font-medium text-lg' target='_blank' href='https://github.com/abhinav550-lol/'><img src="assets/github-logo.svg"   alt="" className='w-6 ' /> <span>Github</span></a></li>
-				<li><a className='text-gray-200 flex gap-2 font-karla cursor-pointer font-medium text-lg' target='_blank' href='https://www.linkedin.com/in/abhinav-mishra-53a504286/'><img src="assets/linkedin-logo.svg"   alt="" className='w-6   ' /> <span>LinkedIn</span></a></li>
+				<li><a className='text-gray-200 flex gap-2 font-karla cursor-pointer font-medium text-lg' target='_blank' href='https://github.com/abhinav550-lol/'><img src="/assets/github-logo.svg"   alt="" className='w-6 ' /> <span>Github</span></a></li>
+				<li><a className='text-gray-200 flex gap-2 font-karla cursor-pointer font-medium text-lg' target='_blank' href='https://www.linkedin.com/in/abhinav-mishra-53a504286/'><img src="/assets/linkedin-logo.svg"   alt="" className='w-6   ' /> <span>LinkedIn</span></a></li>
 			</ul>
 		</div>
 	</div>

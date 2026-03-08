@@ -33,6 +33,8 @@ const Signin = () => {
 			showToast(message , 'success');
 			
 			//Setting global auth state
+
+			console.log(user)
 			dispatch(setAuth(user))	
 			navigate('/home');
 		},

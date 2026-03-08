@@ -12,7 +12,7 @@ router.post('/movies/:movieId/add', isLoggedIn , reviewController.addReview);
 router.get('/movies/:movieId', reviewController.getReviewsByMovie);
 
 //Get all reviews by a particular user, to be displayed on their profile
-router.get('/users/:userId', isLoggedIn , reviewController.getAllUserReviews);
+router.get('/users/:userId' , reviewController.getAllUserReviews);
 
 //edit a review by reviewId
 router.patch('/:reviewId/edit', isLoggedIn , reviewController.editReview);
