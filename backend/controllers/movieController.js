@@ -53,7 +53,6 @@ movieController.viewAllMovies = wrapAsyncErrors(async (req, res, next) => {
 movieController.browseMovies = wrapAsyncErrors(async (req, res, next) => {
 	const { q : name, genre } = req.query;
 
-	console.log(genre)
 	const limit = 20;
 
 	const filters = {};

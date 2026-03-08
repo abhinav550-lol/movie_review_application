@@ -157,7 +157,6 @@ reviewController.deleteReview = wrapAsyncErrors(async (req, res, next) => {
 		return next(new AppError("Review not found", 404));
 	}
 
-	console.log(foundReview.user_id, foundUser._id);
 
 	if(foundReview.user_id.toString() !== foundUser._id.toString()){
 		return next(new AppError("You are not authorized to edit this review", 403));
@@ -227,7 +226,6 @@ reviewController.upvoteReview = wrapAsyncErrors(async (req, res, next) => {
 	let foundReaction = await ReviewReaction.findOne({review_id : foundReview._id , user_id : foundUser._id});
 
 	if(!foundReaction){
-		console.log("No reaction found, adding upvote");
 		foundReaction = await ReviewReaction.create({review_id : foundReview._id , user_id : foundUser._id , reaction_type : 'upvote'});
 		foundReview.upvotes += 1;
 		message = "Upvote added successfully";
@@ -246,7 +244,6 @@ reviewController.upvoteReview = wrapAsyncErrors(async (req, res, next) => {
 	}
 
 
-	console.log(foundReview);
 
 	await foundReview.save();
 
